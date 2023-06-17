@@ -1,3 +1,4 @@
+const cors = require('cors');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //turn off ssl, only for development
 
 const express = require('express');
@@ -13,6 +14,7 @@ const client = new Client({
   }
 });
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -28,24 +30,13 @@ app.get('/search', async function(req, res) {
       }
     });
     
-    console.log(response);
-
-    console.log('Response Body:', response.body);
-    console.log('Hits:', response.body.hits);
-
-    if(response.body && response.body.hits && response.body.hits.hits && response.body.hits.hits.length > 0) {
-      console.log(JSON.stringify(response.body.hits.hits[0], null, 2));
-    } else {
-      console.log("No hits found");
-    }    
-    console.log("Response Body:", JSON.stringify(response.body, null, 2));
-    console.log("Hits:", JSON.stringify(response.body.hits, null, 2));
-
-    if (response.body && response.body.hits && response.body.hits.hits.length > 0) {
-      const hits = response.body.hits.hits;
+    if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
+      const hits = response.hits.hits;
       const results = hits.map(hit => ({ 
         title: hit._source.title 
       }));
+    
+    console.log(results)
 
       res.json(results);
     } else {
@@ -57,6 +48,5 @@ app.get('/search', async function(req, res) {
     res.status(500).send('An error occurred while searching.');
   }
 });
-
 
 app.listen(3000, () => console.log('Server listening on port 3000'));

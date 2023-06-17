@@ -45,10 +45,12 @@
           url: 'http://localhost:3000/search?query=' + searchTerm, //server adress
           method: 'GET',
           success: function(data) {
+            console.log(data);
             $('#loadingIndicator').addClass('d-none');
             $('#resultsTable').removeClass('d-none');
             $.each(data, function(index, result) {
-              $('#resultsBody').append(`<tr><td>${result}</td></tr>`);
+              // Access the title property of the result object
+              $('#resultsBody').append(`<tr><td>${result.title}</td></tr>`);
             });
           },
           error: function() {
