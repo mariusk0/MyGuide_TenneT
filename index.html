@@ -42,7 +42,7 @@
         $('#resultsBody').empty();
         const searchTerm = $('#searchTerm').val();
         $.ajax({
-          url: '/search?query=' + searchTerm,
+          url: 'http://localhost:3000/search?query=' + searchTerm, //server adress
           method: 'GET',
           success: function(data) {
             $('#loadingIndicator').addClass('d-none');
