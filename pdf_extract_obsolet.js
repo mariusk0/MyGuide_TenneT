@@ -20,6 +20,7 @@ async function run() {
     index: 'pdfs',
   }, { ignore: [404] });
 
+/*
   // Create the ingest pipeline
   await client.ingest.putPipeline({
     id: 'attachment',
@@ -91,6 +92,8 @@ async function run() {
   } catch(error) {
     console.error('An error occurred:', error);
   }
+*/
 }
+
 
 run().catch(console.log);
