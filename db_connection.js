@@ -29,6 +29,8 @@ app.get('/search', async function(req, res) {
         },
       }
     });
+
+    // console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
