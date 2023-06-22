@@ -19,19 +19,21 @@ const client = new Client({
   }
 });
 
+
 app.use(cors());
 
 
 // Create Summery function using openAI API
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  organization: "org-Ov1Ul6d5fm0zLVLaeaHEKNck",
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
 const getSummary = async (text) => {
   try {
+    
+    // get summery from chatGPT
     const response = await openai.createCompletion({
       model: 'text-davinci-003', // choose engine
       prompt: `Please provide a short summary of approximately 60 words, do not mention the title. My document is: ${text}\n`,
@@ -39,8 +41,14 @@ const getSummary = async (text) => {
       max_tokens: 256, // how long should the summary be
     });
 
-    console.log(response);
-    return response.choices[0].text.trim();
+    /* Delete Index
+    await client.indices.delete({
+      index: 'pdfs',
+    }, { ignore: [404] });
+    */
+
+    // console.log(response);
+    return response.data.choices[0].text;
 
   } catch (error) {
     console.error("Error with OpenAI API: ", error);
@@ -92,6 +100,7 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   // Index the PDF file
   await client.index({
     index: 'pdfs',
+    id: titleU,
     pipeline: 'attachment',
     body: {
       data: base64String,
@@ -109,7 +118,10 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   res.send({ message: 'PDF uploaded successfully!' });
   } catch (error) {
     console.error(`Error indexing ${req.file.originalname}: ${error}`);
-    res.status(500).send({ error: 'Error uploading PDF.' });
+    // Check if headers have already been sent
+    if (!res.headersSent) {
+      res.status(500).send({ error: 'Error uploading PDF.' });
+    }
   }
 });
 

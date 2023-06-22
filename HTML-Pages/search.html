@@ -26,6 +26,7 @@
           <tr>
             <th>Title</th>
             <th>Company Unit</th>
+            <th>Summary</th>
             <th>Modified</th>
             <th>Author</th>
           </tr>
@@ -54,7 +55,7 @@
             $('#resultsTable').removeClass('d-none');
             $.each(data, function(index, result) {
               // Access the title property of the result object
-              $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.modified}</td><td>${result.author}</td></tr>`);
+              $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.summary}</td><td>${result.modified}</td><td>${result.author}</td></tr>`);
             });
           },
           error: function() {

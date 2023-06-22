@@ -20,7 +20,7 @@ async function run() {
     index: 'pdfs',
   }, { ignore: [404] });
 
-/*
+/
   // Create the ingest pipeline
   await client.ingest.putPipeline({
     id: 'attachment',
