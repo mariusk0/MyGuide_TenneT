@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const { Client } = require('@elastic/elasticsearch');
 const app = express();
+const pdfParse = require('pdf-parse');
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -19,6 +20,34 @@ const client = new Client({
 });
 
 app.use(cors());
+
+
+// Create Summery function using openAI API
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+  organization: "org-Ov1Ul6d5fm0zLVLaeaHEKNck",
+  apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
+
+const getSummary = async (text) => {
+  try {
+    const response = await openai.createCompletion({
+      model: 'text-davinci-003', // choose engine
+      prompt: `Please provide a short summary of approximately 60 words, do not mention the title. My document is: ${text}\n`,
+      temperature: 1,
+      max_tokens: 256, // how long should the summary be
+    });
+
+    console.log(response);
+    return response.choices[0].text.trim();
+
+  } catch (error) {
+    console.error("Error with OpenAI API: ", error);
+    throw error; // re-throw the error so it can be caught in the route handler
+  }
+};
+
 
 app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   try {
@@ -36,6 +65,13 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     const pdf = fs.readFileSync(pdfFile.path);
     const base64String = Buffer.from(pdf).toString('base64');
 
+    // Extract text from PDF
+    const data = await pdfParse(pdf);
+    const extractedText = data.text;
+
+    // Generate summary using OpenAI GPT-4
+    const summary = await getSummary(extractedText);
+
     // Delete the file from uploads folder
     fs.unlinkSync(pdfFile.path);
 
@@ -52,23 +88,25 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     }
   });
 
-    // Index the PDF file
-    await client.index({
-      index: 'pdfs',
-      pipeline: 'attachment',
-      body: {
-        data: base64String,
-        title: titleU,
-        auther: autherU,
-        subject: subject,
-        language: language,
-        company_unit: companyUnit,
-        doc_type: docType,
-        doc_level: docLevel
-      }
-    });
 
-    res.send({ message: 'PDF uploaded successfully!' });
+  // Index the PDF file
+  await client.index({
+    index: 'pdfs',
+    pipeline: 'attachment',
+    body: {
+      data: base64String,
+      title: titleU,
+      auther: autherU,
+      subject: subject,
+      language: language,
+      company_unit: companyUnit,
+      doc_type: docType,
+      doc_level: docLevel,
+      summary: summary,
+    }
+  });
+
+  res.send({ message: 'PDF uploaded successfully!' });
   } catch (error) {
     console.error(`Error indexing ${req.file.originalname}: ${error}`);
     res.status(500).send({ error: 'Error uploading PDF.' });

@@ -30,12 +30,15 @@ app.get('/search', async function(req, res) {
       }
     });
 
-    // console.log('Response:', JSON.stringify(response, null, 2));
+    console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
       const results = hits.map(hit => ({ 
-        title: hit._source.title 
+        title: hit._source.title,
+        company_unit: hit._source.company_unit,
+        modified: hit._source.attachment.modified,
+        author: hit._source.auther,
       }));
     
     console.log(results)
