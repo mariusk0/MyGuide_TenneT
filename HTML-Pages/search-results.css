@@ -1,0 +1,237 @@
+.suchergebnisse-child {
+  position: absolute;
+  height: 96.45%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 3.55%;
+  left: 0;
+  border-radius: 8px;
+  background-color: var(--color-white);
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
+}
+.group-child,
+.group-item {
+  position: absolute;
+  top: calc(50% - 27.5px);
+  right: 6.37px;
+  width: 39.26px;
+  height: 37.05px;
+}
+.group-item {
+  top: calc(50% + 14.86px);
+  right: -1.5px;
+  border-radius: var(--br-11xs);
+  width: 55px;
+  height: 12.64px;
+}
+.vector-parent {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: calc(50% - 24px);
+  right: 2px;
+  width: 52px;
+  height: 52px;
+}
+.titel-der-guideline {
+  font-weight: 600;
+}
+.unit {
+  font-size: var(--font-size-xl);
+  color: var(--color-gray);
+}
+.autor,
+.titel-der-guideline-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.autor {
+  top: 86.92%;
+  font-size: var(--font-size-sm);
+  font-weight: 300;
+  color: var(--color-dimgray);
+}
+.beschreibung-der-guideline {
+  position: absolute;
+  height: 56.15%;
+  width: 86.69%;
+  top: 30.77%;
+  left: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  display: inline-block;
+}
+.artikel-eintrag,
+.artikel-eintrag1,
+.artikel-eintrag2 {
+  position: absolute;
+  height: 11.26%;
+  width: 90.74%;
+  top: 5.63%;
+  right: 4.5%;
+  bottom: 83.12%;
+  left: 4.75%;
+}
+.artikel-eintrag1,
+.artikel-eintrag2 {
+  top: 36.28%;
+  bottom: 52.47%;
+}
+.artikel-eintrag2 {
+  top: 51.6%;
+  bottom: 37.14%;
+}
+.artikel-eintrag3,
+.artikel-eintrag4,
+.artikel-eintrag5,
+.suchergebnisse {
+  position: absolute;
+  height: 11.26%;
+  width: 90.74%;
+  top: 66.93%;
+  right: 4.5%;
+  bottom: 21.82%;
+  left: 4.75%;
+}
+.artikel-eintrag4,
+.artikel-eintrag5,
+.suchergebnisse {
+  top: 82.25%;
+  bottom: 6.49%;
+}
+.artikel-eintrag5,
+.suchergebnisse {
+  top: 20.95%;
+  bottom: 67.79%;
+}
+.suchergebnisse {
+  height: 57.41%;
+  width: 62.45%;
+  top: 21.47%;
+  right: 18.8%;
+  bottom: 21.12%;
+  left: 18.75%;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--color-dodgerblue);
+  font-family: var(--font-inter);
+}
+.myguidetennet2 {
+  margin: 0;
+  position: absolute;
+  top: 279px;
+  left: calc(50% - 608px);
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  width: 1215px;
+  height: 77px;
+}
+.pexels-thisisengineering-38614 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 43px;
+  right: 60px;
+  border-radius: var(--br-256xl);
+  width: 100px;
+  height: 100px;
+  background-image: url(./public/pexelsthisisengineering3861447-1-1@2x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.tutorial-child1,
+.tutorial-child2,
+.tutorial-child3 {
+  position: absolute;
+  height: 37.25%;
+  width: 77.69%;
+  top: 16.79%;
+  right: 11.16%;
+  bottom: 45.96%;
+  left: 11.16%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.tutorial-child2,
+.tutorial-child3 {
+  height: 21.14%;
+  width: 4.48%;
+  top: 33.18%;
+  right: 12.34%;
+  bottom: 45.68%;
+  left: 83.18%;
+}
+.tutorial-child3 {
+  height: 33.64%;
+  width: 50.31%;
+  top: 41.51%;
+  right: 24.84%;
+  bottom: 24.84%;
+  left: 24.84%;
+}
+.functionality1,
+.tutorial1 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+.tutorial1 {
+  background-color: transparent;
+  position: absolute;
+  top: 65px;
+  right: 192px;
+  width: 67px;
+  height: 67px;
+}
+.functionality1 {
+  background-color: var(--color-gainsboro);
+  position: relative;
+  width: 39px;
+  height: 41px;
+}
+.favorites-icon1 {
+  position: relative;
+  width: 42px;
+  height: 37px;
+  margin-top: -37px;
+}
+.favorite-button1 {
+  position: absolute;
+  top: 73px;
+  right: 291px;
+  width: 39px;
+  height: 41px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.tennet-logo-icon2 {
+  position: absolute;
+  top: 56px;
+  left: 158px;
+  width: 300px;
+  height: 61.36px;
+  object-fit: cover;
+}
+.search-results {
+  position: relative;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 2012px;
+  overflow-x: auto;
+  text-align: center;
+  font-size: var(--font-size-45xl);
+  color: var(--color-darkslateblue-100);
+  font-family: var(--font-inter);
+}
