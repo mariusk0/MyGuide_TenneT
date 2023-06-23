@@ -64,7 +64,7 @@ const getSummary = async (text) => {
 };
 
 // Use express.static middleware to serve files from a directory
-app.use('/pdfs', express.static('PDF Directory'));
+app.use('/pdfs', express.static('pdfs'));
 
 app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   try {
@@ -122,6 +122,7 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
       doc_level: docLevel,
       summary: summary,
       filename: pdfFile.originalname, // for download
+      created_at: new Date().toISOString(),
     }
   });
 
@@ -141,6 +142,15 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// date format change function
+function formatDate(isoString) {
+  const date = new Date(isoString);
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed in JavaScript
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
 
 app.get('/search', async function(req, res) {
   const query = req.query.query;
@@ -162,8 +172,9 @@ app.get('/search', async function(req, res) {
         title: hit._source.title,
         company_unit: hit._source.company_unit,
         summary: hit._source.summary,
-        modified: hit._source.attachment.modified,
+        created_at: formatDate(hit._source.created_at),
         author: hit._source.auther,
+        url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
       }));
     
     console.log(results)
@@ -177,6 +188,34 @@ app.get('/search', async function(req, res) {
     console.error(error);
     res.status(500).send('An error occurred while searching.');
   }
+});
+
+// SERVE PDF
+app.get('/pdfs/:title', async (req, res) => {
+  const { title } = req.params;
+  const result = await client.search({
+    index: 'pdfs',
+    body: {
+      query: {
+        match: { title }
+      }
+    }
+  });
+
+  if (result.hits.hits.length === 0) {
+    return res.status(404).send('Not found');
+  }
+
+  const pdfData = result.hits.hits[0]._source.data; // This is your base64 string
+  const buffer = Buffer.from(pdfData, 'base64');
+
+  res.writeHead(200, {
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': 'attachment; filename=' + title + '.pdf',
+    'Content-Length': buffer.length
+  });
+
+  res.end(buffer);
 });
 
 app.listen(3000, () => console.log('Server started on port 3000'));
