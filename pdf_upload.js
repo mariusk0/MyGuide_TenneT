@@ -1,3 +1,6 @@
+// Load enviroment var
+require('dotenv').config();
+
 const cors = require('cors');
 const express = require('express');
 const multer = require('multer');
@@ -26,7 +29,7 @@ app.use(cors());
 // Create Summery function using openAI API
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
