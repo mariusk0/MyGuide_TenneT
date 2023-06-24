@@ -1,0 +1,27 @@
+Themenbereich
+- Organization & Principals
+- Corporate Policies
+- Units & Committees
+- Templates & Governance
+
+Organisationseinheit
+- Asset Management
+- Audit, Risk & Internal Control
+- Board Office
+- Business Guidance
+
+Dokumententyp
+- Corporate Policy
+- Functional Description
+- Handbook
+- Other
+
+Dokumenten-Level
+- Level 0
+- Level 1
+- Level 2
+
+Sprache
+- Englisch
+- Deutsch
+- Niederländisch

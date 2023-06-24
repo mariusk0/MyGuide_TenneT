@@ -14,6 +14,27 @@
         <label for="searchTerm" class="form-label">Enter search term:</label>
         <input type="text" class="form-control" id="searchTerm" name="searchTerm">
       </div>
+      <div class="mb-3">
+        <label for="language" class="form-label">Select language:</label>
+        <select class="form-select" id="language">
+          <option value="">Any</option>
+          <option value="Englisch">Englisch</option>
+          <option value="Deutsch">Deutsch</option>
+          <option value="Niederländisch">Niederländisch</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="company_unit" class="form-label">Select Unit:</label>
+        <select class="form-select" id="company_unit">
+          <option value="">Any</option>
+          <option value="Asset Management">Asset Management</option>
+          <option value="Audit, Risk & Internal Control">Audit, Risk & Internal Control</option>
+          <option value="Board Office">Board Office</option>
+          <option value="Business Guidance">Business Guidance</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary">Search</button>
       <button type="button" class="btn btn-secondary" id="reset">Reset</button>
     </form>
@@ -46,8 +67,10 @@
         $('#resultsTable').addClass('d-none');
         $('#resultsBody').empty();
         const searchTerm = $('#searchTerm').val();
+        const language = $('#language').val();
+        const company_unit = $('#company_unit').val();
         $.ajax({
-          url: 'http://localhost:3000/search?query=' + searchTerm, //server adress
+          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit, //server adress + query
           method: 'GET',
           success: function(data) {
             console.log(data);

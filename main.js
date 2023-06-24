@@ -26,8 +26,6 @@ const client = new Client({
 
 app.use(cors());
 
-
-
 // UPLOAD FUNCTION
 
 // Create Summery function using openAI API
@@ -105,7 +103,6 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     }
   });
 
-
   // Index the PDF file
   await client.index({
     index: 'pdfs',
@@ -154,14 +151,56 @@ function formatDate(isoString) {
 
 app.get('/search', async function(req, res) {
   const query = req.query.query;
+  const language = req.query.language;
+  console.log(language)
+  const company_unit = req.query.company_unit
+  console.log(company_unit)
+
   try {
+
+    // Normal search
+    const searchQuery = {
+      query: {
+        bool: {
+          must: {
+            multi_match: {
+              query: query,
+              fields: ['attachment.content', 'title', 'auther', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+              type: 'best_fields'
+            }
+          },
+          filter: {
+            match: { language: language },
+          }
+        }
+      }
+    };
+
+    /*
+    // Language filter
+    if (language) {
+      body.query.bool.filter = {
+        term: {
+         language: language
+        }
+      };
+    }
+
+    // company_unit filter
+    if (company_unit) {
+      body.query.bool.filter = {
+        term: {
+          company_unit: company_unit
+        }
+      };
+    }
+    */
+
+    console.log("Search Query:", JSON.stringify(searchQuery, null, 2));  // This line will log the search query
+
     const response = await client.search({
       index: 'pdfs',
-      body: {
-        query: {
-          match: { 'attachment.content': query }
-        },
-      }
+      body: searchQuery
     });
 
     // console.log('Response:', JSON.stringify(response, null, 2));

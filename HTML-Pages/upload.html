@@ -11,37 +11,55 @@
 		<h1 class="text-center mb-5">PDF Uploader</h1>
 		<form id="pdf-upload-form" method="POST" enctype="multipart/form-data">
 			<div class="mb-3">
-				<label for="pdf-file" class="form-label">Select PDF File</label>
+				<label for="pdf-file" class="form-label">Wähle PDF-File</label>
 				<input type="file" class="form-control" name="pdf-file" id="pdf-file" required>
 			</div>
 			<div class="mb-3">
-				<label for="titleU" class="form-label">Title</label>
+				<label for="titleU" class="form-label">Titel</label>
 				<input type="text" class="form-control" name="titleU" id="titleU" required>
 			</div>
 			<div class="mb-3">
-				<label for="autherU" class="form-label">Auther</label>
+				<label for="autherU" class="form-label">Autor</label>
 				<input type="text" class="form-control" name="autherU" id="autherU" required>
 			</div>
 			<div class="mb-3">
-				<label for="subject" class="form-label">Subject</label>
-				<input type="text" class="form-control" name="subject" id="subject" required>
-			</div>
-			<div class="mb-3">
-				<label for="language" class="form-label">Language</label>
-				<select class="form-control" name="language" id="language" required>
-					<option value="">Select Language</option>
-					<option value="English">English</option>
-					<option value="Dutch">Dutch</option>
-					<option value="German">German</option>
+				<label for="subject" class="form-label">Themenbereich</label>
+				<select class="form-control" name="subject" id="subject" required>
+					<option value="">Wähle Themenbereich</option>
+					<option value="Organization & Principals">Organization & Principals</option>
+					<option value="Corporate Policies">Corporate Policies</option>
+					<option value="Units & Committees">Units & Committees</option>
+					<option value="Templates & Governance">Templates & Governance</option>
 				</select>
 			</div>
 			<div class="mb-3">
-				<label for="company-unit" class="form-label">Company Unit</label>
-				<input type="text" class="form-control" name="company-unit" id="company-unit" required>
+				<label for="language" class="form-label">Sprache</label>
+				<select class="form-control" name="language" id="language" required>
+					<option value="">Wähle Sprache</option>
+					<option value="Englisch">Englisch</option>
+					<option value="Deutsch">Deutsch</option>
+					<option value="Niederländisch">Niederländisch</option>
+				</select>
 			</div>
 			<div class="mb-3">
-				<label for="doc-type" class="form-label">Document Type</label>
-				<input type="text" class="form-control" name="doc-type" id="doc-type" required>
+				<label for="company-unit" class="form-label">Organisationseinheit</label>
+				<select class="form-control" name="company-unit" id="company-unit" required>
+					<option value="">Wähle Organisationseinheit</option>
+					<option value="Asset Management">Asset Management</option>
+					<option value="Audit, Risk & Internal Control">Audit, Risk & Internal Control</option>
+					<option value="Board Office">Board Office</option>
+					<option value="Business Guidance">Business Guidance</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label for="doc-type" class="form-label">Dokumententyp</label>
+				<select class="form-control" name="doc-type" id="doc-type" required>
+					<option value="">Wähle Dokumententyp</option>
+					<option value="Corporate Policy">Corporate Policy</option>
+					<option value="Functional Description">Functional Description</option>
+					<option value="Handbook">Handbook</option>
+					<option value="Other">Other</option>
+				</select>
 			</div>
 			<div class="mb-3">
 				<label for="doc-level" class="form-label">Document Level</label>
