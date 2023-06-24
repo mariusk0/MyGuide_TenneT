@@ -28,17 +28,6 @@
       </div>
 
       <div class="mb-3">
-        <label for="language" class="form-label">Select language:</label>
-        <select class="form-select" id="language">
-          <option value="">Any</option>
-          <option value="Englisch">Englisch</option>
-          <option value="Deutsch">Deutsch</option>
-          <option value="Niederländisch">Niederländisch</option>
-          <!-- Add more options as needed -->
-        </select>
-      </div>
-
-      <div class="mb-3">
         <label for="company_unit" class="form-label">Select Unit:</label>
         <select class="form-select" id="company_unit">
           <option value="">Any</option>
@@ -46,6 +35,40 @@
           <option value="Audit, Risk & Internal Control">Audit, Risk & Internal Control</option>
           <option value="Board Office">Board Office</option>
           <option value="Business Guidance">Business Guidance</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="doc_type" class="form-label">Wähle Dokumententyp:</label>
+        <select class="form-select" id="doc_type">
+          <option value="">Any</option>
+          <option value="Corporate Policy">Corporate Policy</option>
+          <option value="Functional Description">Functional Description</option>
+          <option value="Handbook">Handbook</option>
+          <option value="Other">Other</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="doc_level" class="form-label">Wähle Dokumentenlevel:</label>
+        <select class="form-select" id="doc_level">
+          <option value="">Any</option>
+          <option value="Level-0">Level-0</option>
+          <option value="Level-1">Level-1</option>
+          <option value="Level-2">Level-2</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="language" class="form-label">Select language:</label>
+        <select class="form-select" id="language">
+          <option value="">Any</option>
+          <option value="Englisch">Englisch</option>
+          <option value="Deutsch">Deutsch</option>
+          <option value="Niederländisch">Niederländisch</option>
           <!-- Add more options as needed -->
         </select>
       </div>
@@ -85,8 +108,10 @@
         const language = $('#language').val();
         const company_unit = $('#company_unit').val();
         const subject = $('#subject').val();
+        const doc_type = $('#doc_type').val();
+        const doc_level = $('#doc_level').val();
         $.ajax({
-          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject, //server adress + query
+          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject + '&doc_type=' + doc_type + '&doc_level=' + doc_level, //server adress + query
           method: 'GET',
           success: function(data) {
             console.log(data);

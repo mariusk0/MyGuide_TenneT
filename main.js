@@ -72,9 +72,9 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     const autherU = req.body.autherU;
     const subject = req.body.subject;
     const language = req.body.language;
-    const companyUnit = req.body['company-unit'];
-    const docType = req.body['doc-type'];
-    const docLevel = req.body['doc-level'];
+    const company_unit = req.body.company_unit;
+    const doc_type = req.body.doc_type;
+    const doc_level = req.body.doc_level;
 
     // Read the PDF file and convert it to base64
     const pdf = fs.readFileSync(pdfFile.path);
@@ -114,9 +114,9 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
       auther: autherU,
       subject: subject,
       language: language,
-      company_unit: companyUnit,
-      doc_type: docType,
-      doc_level: docLevel,
+      company_unit: company_unit,
+      doc_type: doc_type,
+      doc_level: doc_level,
       summary: summary,
       filename: pdfFile.originalname, // for download
       created_at: new Date().toISOString(),
@@ -152,15 +152,19 @@ function formatDate(isoString) {
 app.get('/search', async function(req, res) {
   const query = req.query.query;
   const language = req.query.language;
-  console.log(language)
   const company_unit = req.query.company_unit
-  console.log(company_unit)
   const subject = req.query.subject
+  const doc_type = req.query.doc_type
+  const doc_level = req.query.doc_level
+  console.log(doc_level)
 
   try {
 
     // Normal search
     let filters = [];
+    if (doc_level) {
+      filters.push({ match: { doc_level: doc_level } });
+    }
     if (language) {
       filters.push({ match: { language: language } });
     }
@@ -170,6 +174,10 @@ app.get('/search', async function(req, res) {
     if (subject) {
       filters.push({ match: { subject: subject } });
     }
+    if (doc_type) {
+      filters.push({ match: { doc_type: doc_type } });
+    };
+
 
     const response = await client.search({
       index: 'pdfs',
@@ -189,7 +197,7 @@ app.get('/search', async function(req, res) {
     }
     });
 
-    // console.log('Response:', JSON.stringify(response, null, 2));
+    console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
@@ -200,6 +208,7 @@ app.get('/search', async function(req, res) {
         created_at: formatDate(hit._source.created_at),
         author: hit._source.auther,
         url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
+        level: hit._source.doc_level,
       }));
     
     console.log(results)
