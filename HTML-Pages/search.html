@@ -14,6 +14,19 @@
         <label for="searchTerm" class="form-label">Enter search term:</label>
         <input type="text" class="form-control" id="searchTerm" name="searchTerm">
       </div>
+
+      <div class="mb-3">
+        <label for="subject" class="form-label">Wähle Themenbereich:</label>
+        <select class="form-select" id="subject">
+          <option value="">Any</option>
+          <option value="Organization & Principals">Organization & Principals</option>
+          <option value="Corporate Policies">Corporate Policies</option>
+          <option value="Units & Committees">Units & Committees</option>
+          <option value="Templates & Governance">Templates & Governance</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+
       <div class="mb-3">
         <label for="language" class="form-label">Select language:</label>
         <select class="form-select" id="language">
@@ -24,6 +37,7 @@
           <!-- Add more options as needed -->
         </select>
       </div>
+
       <div class="mb-3">
         <label for="company_unit" class="form-label">Select Unit:</label>
         <select class="form-select" id="company_unit">
@@ -35,6 +49,7 @@
           <!-- Add more options as needed -->
         </select>
       </div>
+
       <button type="submit" class="btn btn-primary">Search</button>
       <button type="button" class="btn btn-secondary" id="reset">Reset</button>
     </form>
@@ -69,8 +84,9 @@
         const searchTerm = $('#searchTerm').val();
         const language = $('#language').val();
         const company_unit = $('#company_unit').val();
+        const subject = $('#subject').val();
         $.ajax({
-          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit, //server adress + query
+          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject, //server adress + query
           method: 'GET',
           success: function(data) {
             console.log(data);

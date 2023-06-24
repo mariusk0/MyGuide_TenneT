@@ -155,52 +155,38 @@ app.get('/search', async function(req, res) {
   console.log(language)
   const company_unit = req.query.company_unit
   console.log(company_unit)
+  const subject = req.query.subject
 
   try {
 
     // Normal search
-    const searchQuery = {
-      query: {
-        bool: {
-          must: {
-            multi_match: {
-              query: query,
-              fields: ['attachment.content', 'title', 'auther', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
-              type: 'best_fields'
-            }
-          },
-          filter: {
-            match: { language: language },
-          }
-        }
-      }
-    };
-
-    /*
-    // Language filter
+    let filters = [];
     if (language) {
-      body.query.bool.filter = {
-        term: {
-         language: language
-        }
-      };
+      filters.push({ match: { language: language } });
     }
-
-    // company_unit filter
     if (company_unit) {
-      body.query.bool.filter = {
-        term: {
-          company_unit: company_unit
-        }
-      };
+      filters.push({ match: { company_unit: company_unit } });
     }
-    */
-
-    console.log("Search Query:", JSON.stringify(searchQuery, null, 2));  // This line will log the search query
+    if (subject) {
+      filters.push({ match: { subject: subject } });
+    }
 
     const response = await client.search({
       index: 'pdfs',
-      body: searchQuery
+       body: {
+        query: {
+          bool: {
+            must: {
+              multi_match: {
+                query: query,
+                fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                type: 'best_fields'
+              }
+           },
+          filter: filters
+        }
+      }
+    }
     });
 
     // console.log('Response:', JSON.stringify(response, null, 2));
