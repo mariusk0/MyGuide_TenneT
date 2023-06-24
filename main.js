@@ -167,13 +167,10 @@ app.get('/search', async function(req, res) {
           must: {
             multi_match: {
               query: query,
-              fields: ['attachment.content', 'title', 'auther', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+              fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
               type: 'best_fields'
             }
           },
-          filter: {
-            match: { language: language },
-          }
         }
       }
     };
