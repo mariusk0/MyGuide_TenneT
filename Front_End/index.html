@@ -20,71 +20,144 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <div class="search">
-      <div class="myguidetennet">
-        <h1 class="myguidetennet1">MyGuide@TenneT</h1>
-      </div>
-      <img
-        class="tennet-logo-icon"
-        alt=""
-        src="./public/2560pxtennet-tso-logo-1@2x.png"
-      />
+    <h1 class="myguidetennet2">MyGuide@TenneT</h1>
+    <img class="tennet-logo-icon2" alt="" src="./public/2560pxtennet-tso-logo-1@2x.png" />
 
+    <div class="search-bar">
       <form class="searchbar" id="formID">
         <input
           class="user-input"
           type="text"
-          placeholder="Search..."
+          placeholder="Suche..."
           id="searchTerm" 
           name="searchTerm"
           maxlength
           minlength
         /> <!-- Marius: changed ID to search Term, added name = searchTerm-->
         
+        <!-- Marius: I added a reset button !please style! -->
+        <button class="reset-button" type="button" id="reset">
+          &#10005; <!-- Unicode Character 'MULTIPLICATION X' (U+2715) -->
+        </button>
+
         <button class="search-button" type="submit" id="searchButton">
           <div class="search-text">Suchen</div>
         </button>
-        
-        <!-- Marius: I added a reset button !please style! -->
-        <button class="reset-button" type="button" id="reset">
-          <div class="reset">Zurücksetzen</div>
-        </button>
       </form>
+    </div>
 
-      <nav class="user-picture-parent">
-        <img
+    <div class="dropdowns">
+      <form class="dropdown-filter">
+  
+        <div class="mb-3">
+          <label for="subject" class="form-label">Wähle Themenbereich:</label>
+          <select class="form-select" id="subject">
+            <option value="">Any</option>
+            <option value="Organization & Principals">Organization & Principals</option>
+            <option value="Corporate Policies">Corporate Policies</option>
+            <option value="Units & Committees">Units & Committees</option>
+            <option value="Templates & Governance">Templates & Governance</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label for="company_unit" class="form-label">Wähle Organisationseinheit:</label>
+          <select class="form-select" id="company_unit">
+            <option value="">Any</option>
+            <option value="Asset Management">Asset Management</option>
+            <option value="Audit, Risk & Internal Control">Audit, Risk & Internal Control</option>
+            <option value="Board Office">Board Office</option>
+            <option value="Business Guidance">Business Guidance</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label for="doc_type" class="form-label">Wähle Dokumententyp:</label>
+          <select class="form-select" id="doc_type">
+            <option value="">Any</option>
+            <option value="Corporate Policy">Corporate Policy</option>
+            <option value="Functional Description">Functional Description</option>
+            <option value="Handbook">Handbook</option>
+            <option value="Other">Other</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label for="doc_level" class="form-label">Wähle Dokumentenlevel:</label>
+          <select class="form-select" id="doc_level">
+            <option value="">Any</option>
+            <option value="Level-0">Level-0</option>
+            <option value="Level-1">Level-1</option>
+            <option value="Level-2">Level-2</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label for="language" class="form-label">Wähle Sprache:</label>
+          <select class="form-select" id="language">
+            <option value="">Any</option>
+            <option value="Englisch">Englisch</option>
+            <option value="Deutsch">Deutsch</option>
+            <option value="Niederländisch">Niederländisch</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/search-icon.svg" />
+              <a href="index.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
           class="user-picture-icon"
           alt=""
           src="./public/pexelsthisisengineering3861447-1-1@2x.png"
-        />
-
-        <button class="tutorial">
-          <img class="tutorial-child" alt="" src="./public/vector-441.svg" />
-          <img class="tutorial-item" alt="" src="./public/vector-443.svg" />
-          <img class="tutorial-inner" alt="" src="./public/vector-442.svg" />
-        </button>
-        <div class="favorite-button">
-          <button class="functionality"></button>
-          <img class="favorites-icon" alt="" src="./public/favorites.svg" />
-        </div>
-      </nav>
-    </div>
+      />
+  </div>
 
     <script>
       $(document).ready(function() {
         $('form').submit(function(event) {
           event.preventDefault();
           const searchTerm = $('#searchTerm').val();
+          const language = $('#language').val();
+          const company_unit = $('#company_unit').val();
+          const subject = $('#subject').val();
+          const doc_type = $('#doc_type').val();
+          const doc_level = $('#doc_level').val();
           $.ajax({
-            url: 'http://localhost:3000/search?query=' + searchTerm, // server adress
+            url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject + '&doc_type=' + doc_type + '&doc_level=' + doc_level, //server adress + query + filter
             method: 'GET',
-            // Marius: dieser Code ist bis jetzt an dieser stelle nutzlos, weil es keine ergebniss-tabelle mehr gibt. Aber nicht Löschen vorerst!
+            // store results in local storage
             success: function(data) {
               console.log(data);
               localStorage.setItem('searchResults', JSON.stringify(data));
               window.location.href = 'results.html';
             },
-            // <-- bis here
             error: function() {
               $('#loadingIndicator').addClass('d-none');
               alert('An error occurred while searching. Please try again later.');

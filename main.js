@@ -15,8 +15,6 @@ const upload = multer({ dest: 'uploads/' });
 // Disable Certificate Verification , only for development
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-//Lucas: why https and not http???
-
 const client = new Client({ 
   node: 'https://localhost:9200',
   auth: {
@@ -74,9 +72,9 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     const autherU = req.body.autherU;
     const subject = req.body.subject;
     const language = req.body.language;
-    const companyUnit = req.body['company-unit'];
-    const docType = req.body['doc-type'];
-    const docLevel = req.body['doc-level'];
+    const company_unit = req.body.company_unit;
+    const doc_type = req.body.doc_type;
+    const doc_level = req.body.doc_level;
 
     // Read the PDF file and convert it to base64
     const pdf = fs.readFileSync(pdfFile.path);
@@ -116,9 +114,9 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
       auther: autherU,
       subject: subject,
       language: language,
-      company_unit: companyUnit,
-      doc_type: docType,
-      doc_level: docLevel,
+      company_unit: company_unit,
+      doc_type: doc_type,
+      doc_level: doc_level,
       summary: summary,
       filename: pdfFile.originalname, // for download
       created_at: new Date().toISOString(),
@@ -154,55 +152,52 @@ function formatDate(isoString) {
 app.get('/search', async function(req, res) {
   const query = req.query.query;
   const language = req.query.language;
-  console.log(language)
   const company_unit = req.query.company_unit
-  console.log(company_unit)
+  const subject = req.query.subject
+  const doc_type = req.query.doc_type
+  const doc_level = req.query.doc_level
+  console.log(doc_level)
 
   try {
 
     // Normal search
-    const searchQuery = {
-      query: {
-        bool: {
-          must: {
-            multi_match: {
-              query: query,
-              fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
-              type: 'best_fields'
-            }
-          },
-        }
-      }
+    let filters = [];
+    if (doc_level) {
+      filters.push({ match: { doc_level: doc_level } });
+    }
+    if (language) {
+      filters.push({ match: { language: language } });
+    }
+    if (company_unit) {
+      filters.push({ match: { company_unit: company_unit } });
+    }
+    if (subject) {
+      filters.push({ match: { subject: subject } });
+    }
+    if (doc_type) {
+      filters.push({ match: { doc_type: doc_type } });
     };
 
-    /*
-    // Language filter
-    if (language) {
-      body.query.bool.filter = {
-        term: {
-         language: language
-        }
-      };
-    }
-
-    // company_unit filter
-    if (company_unit) {
-      body.query.bool.filter = {
-        term: {
-          company_unit: company_unit
-        }
-      };
-    }
-    */
-
-    console.log("Search Query:", JSON.stringify(searchQuery, null, 2));  // This line will log the search query
 
     const response = await client.search({
       index: 'pdfs',
-      body: searchQuery
+       body: {
+        query: {
+          bool: {
+            must: {
+              multi_match: {
+                query: query,
+                fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                type: 'best_fields'
+              }
+           },
+          filter: filters
+        }
+      }
+    }
     });
 
-    // console.log('Response:', JSON.stringify(response, null, 2));
+    console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
@@ -213,6 +208,7 @@ app.get('/search', async function(req, res) {
         created_at: formatDate(hit._source.created_at),
         author: hit._source.auther,
         url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
+        level: hit._source.doc_level,
       }));
     
     console.log(results)

@@ -12,21 +12,55 @@
   </head>
   <body>
     <div class="search-results">
-      <main class="suchergebnisse" id="resultsContainer">
-        <!-- Search results will be appended here by JavaScript -->
-      </main>
+      <!--<main class="suchergebnisse" id="resultsContainer">
+        
+      </main>-->
+      <table class="resultsTable" id="resultsTable">
+        <thead>
+          <tr>
+            <th>Titel</th>
+            <th>Organisationseinheit</th>
+            <th>Inhalt</th>
+            <th>Zuletzt Bearbeitet</th>
+            <th>Autor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+        </tbody>
+      </table>
       <h1 class="myguidetennet2">MyGuide@TenneT</h1>
-      <button class="pexels-thisisengineering-38614"></button>
-      <button class="tutorial1">
-        <img class="tutorial-child1" alt="" src="./public/vector-441.svg" />
-        <img class="tutorial-child2" alt="" src="./public/vector-4431.svg" />
-        <img class="tutorial-child3" alt="" src="./public/vector-442.svg" />
-      </button>
-      <div class="favorite-button1">
-        <button class="functionality1"></button>
-        <img class="favorites-icon1" alt="" src="./public/favorites.svg" />
-      </div>
       <img class="tennet-logo-icon2" alt="" src="./public/2560pxtennet-tso-logo-1@2x.png" />
+    </div>
+
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/search-icon.svg" />
+              <a href="index.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
+          class="user-picture-icon"
+          alt=""
+          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
+      />
     </div>
 
     <script>
@@ -50,6 +84,7 @@
           return;
         }
 
+        /*
         $.each(results, function(index, result) {
           if (result.title && result.summary && result.url) {
             $('#resultsContainer').append(`
@@ -73,6 +108,12 @@
             console.error("One of the required fields is missing in result item:", result);
           }
         });
+        */
+
+        $.each(results, function(index, result) {
+              // Access the title property of the result object
+              $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.summary}</td><td>${result.created_at}</td><td>${result.author}</td><td><a href="${result.url}" target="_blank">Download</a></td></tr>`);
+            });
       });
     </script>
   </body>
