@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./results.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="search-results">
+      <!--<main class="suchergebnisse" id="resultsContainer">
+        
+      </main>-->
+      <table class="resultsTable" id="resultsTable">
+        <thead>
+          <tr>
+            <th>Titel</th>
+            <th>Organisationseinheit</th>
+            <th>Inhalt</th>
+            <th>Zuletzt Bearbeitet</th>
+            <th>Autor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+        </tbody>
+      </table>
+      <h1 class="myguidetennet2">MyGuide@TenneT</h1>
+      <img class="tennet-logo-icon2" alt="" src="./public/2560pxtennet-tso-logo-1@2x.png" />
+    </div>
+
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/search-icon.svg" />
+              <a href="index.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
+          class="user-picture-icon"
+          alt=""
+          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
+      />
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        var searchResults = localStorage.getItem('searchResults');
+        if (!searchResults) {
+          console.error("No data found in local storage for 'searchResults'");
+          return;
+        }
+        
+        var results;
+        try {
+          results = JSON.parse(searchResults);
+        } catch (error) {
+          console.error("Failed to parse 'searchResults' from local storage:", error);
+          return;
+        }
+
+        if (!Array.isArray(results)) {
+          console.error("'searchResults' is not an array");
+          return;
+        }
+
+        /*
+        $.each(results, function(index, result) {
+          if (result.title && result.summary && result.url) {
+            $('#resultsContainer').append(`
+              <div class="artikel-eintrag">
+                <button class="vector-parent">
+                  <img class="group-child" alt="" src="./public/vector-9.svg" />
+                  <img class="group-item" alt="" src="./public/vector-114.svg" />
+                </button>
+                <div class="titel-der-guideline-container">
+                  <span class="titel-der-guideline">${result.title}</span>
+                  <span class="unit">- Unit</span>
+                </div>
+                <div class="autor">${result.date} - Autor</div>
+                <div class="beschreibung-der-guideline">
+                  ${result.summary}
+                </div>
+                <a href="${result.url}" download>Download PDF</a>
+              </div>
+            `);
+          } else {
+            console.error("One of the required fields is missing in result item:", result);
+          }
+        });
+        */
+
+        $.each(results, function(index, result) {
+              // Access the title property of the result object
+              $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.summary}</td><td>${result.created_at}</td><td>${result.author}</td><td><a href="${result.url}" target="_blank">Download</a></td></tr>`);
+            });
+      });
+    </script>
+  </body>
+</html>
