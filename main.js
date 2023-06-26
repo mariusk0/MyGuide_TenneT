@@ -68,8 +68,8 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   try {
     // Get data from form
     const pdfFile = req.file;
-    const titleU = req.body.titleU;
-    const autherU = req.body.autherU;
+    const title = req.body.title;
+    const author = req.body.author;
     const subject = req.body.subject;
     const language = req.body.language;
     const company_unit = req.body.company_unit;
@@ -106,12 +106,12 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   // Index the PDF file
   await client.index({
     index: 'pdfs',
-    id: titleU,
+    id: title,
     pipeline: 'attachment',
     body: {
       data: base64String,
-      title: titleU,
-      auther: autherU,
+      title: title,
+      author: author,
       subject: subject,
       language: language,
       company_unit: company_unit,
@@ -206,7 +206,7 @@ app.get('/search', async function(req, res) {
         company_unit: hit._source.company_unit,
         summary: hit._source.summary,
         created_at: formatDate(hit._source.created_at),
-        author: hit._source.auther,
+        author: hit._source.author,
         url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
         level: hit._source.doc_level,
       }));
