@@ -1,8 +1,22 @@
 const { Client } = require('@elastic/elasticsearch');
+const https = require('https');
 
 // Connect to Elasticsearch
 const client = new Client({
-    node: 'http://localhost:9200'
+    node: 'https://localhost:9200', // Use 'https' instead of 'http'
+    auth: {
+        username: 'marius',
+        password: 'kottek'
+    },
+    ssl: {
+        // This is for self-signed certificates, in production use valid certificates.
+        rejectUnauthorized: false
+    },
+    agent: {
+        https: new https.Agent({
+            rejectUnauthorized: false
+        })
+    }
 });
 
 async function deletePdfs() {
@@ -18,7 +32,7 @@ async function deletePdfs() {
         
         // Execute the delete by query request
         const response = await client.deleteByQuery({
-            index: 'your-index',
+            index: 'pdfs', // Make sure to use the correct index name
             body: query
         });
         

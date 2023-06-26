@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PDF Deleter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <a href="index.html" class="btn btn-primary">Zur Suche</a>
+    </div>
+    <div class="container my-5">
+        <h1 class="text-center mb-5">PDF Deleter</h1>
+        <form id="pdf-delete-form" method="POST">
+            <div class="mb-3">
+                <label for="titleD" class="form-label">Titel</label>
+                <input type="text" class="form-control" name="titleD" id="titleD" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger">Delete PDF</button>
+            </div>
+        </form>
+        <div id="loading" class="text-center mt-5" style="display: none;">
+            <img src="https://cdn.dribbble.com/users/1081839/screenshots/4816131/loader.gif" alt="Loading...">
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#pdf-delete-form').submit(function (e) {
+                e.preventDefault();
+                var titleToDelete = $('#titleD').val();
+                $('#loading').show();
+                $.ajax({
+                    url: 'http://localhost:3000/delete-pdf',
+                    type: 'POST',
+                    data: { title: titleToDelete },
+                    success: function (response) {
+                        $('#loading').hide();
+                        alert('PDF deleted successfully!');
+                        $('#pdf-delete-form')[0].reset();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('#loading').hide();
+                        alert('Error deleting PDF: ' + errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
