@@ -15,15 +15,18 @@
       <!--<main class="suchergebnisse" id="resultsContainer">
         
       </main>-->
+
+      <p id="answerDisplay"></p>
+
       <table class="resultsTable" id="resultsTable">
         <thead>
           <tr>
             <th>Titel</th>
             <th>Organisationseinheit</th>
             <th>Inhalt</th>
+            <th>Antwort</th>
             <th>Zuletzt Bearbeitet</th>
             <th>Autor</th>
-            <th></th>
           </tr>
         </thead>
         <tbody id="resultsBody">
@@ -111,9 +114,13 @@
         */
 
         $.each(results, function(index, result) {
-              // Access the title property of the result object
-              $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.summary}</td><td>${result.created_at}</td><td>${result.author}</td><td><a href="${result.url}" target="_blank">Download</a></td></tr>`);
-            });
+          if (index === 0) { // If it's the first result
+            $('#answerDisplay').text(result.answer); // Display the answer above the table
+          }
+          // Add the result to the table without the answer
+          $('#resultsBody').append(`<tr><td>${result.title}</td><td>${result.company_unit}</td><td>${result.summary}</td><td>${result.created_at}</td><td>${result.author}</td><td><a href="${result.url}" target="_blank">Download</a></td></tr>`);
+        });
+
       });
     </script>
   </body>
