@@ -252,4 +252,15 @@ app.get('/pdfs/:title', async (req, res) => {
   res.end(buffer);
 });
 
+// Role System
+const UserRepository = require('./userRepository');
+const userRepository = new UserRepository();
+
+// Set roles only needed once
+userRepository.setRoles().catch(console.error);
+
+userRepository.createAdmin('admin', 'admin').catch(console.error);
+userRepository.createUser('user', 'user').catch(console.error);
+
+
 app.listen(3000, () => console.log('Server started on port 3000'));

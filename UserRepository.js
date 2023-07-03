@@ -7,7 +7,11 @@ class UserRepository
 
   async  setRoles() {
     // Create a new Elasticsearch client instance
-    const client = new Client({ node: 'http://localhost:9200' });
+    const client = new Client({ node: 'https://localhost:9200',   
+      auth: {
+      username: 'marius',
+      password: 'kottek'
+    } });
     try {
 
       // Define the role settings
@@ -16,7 +20,7 @@ class UserRepository
         indices: [
           {
             names: '*',
-            privileges: ['*']
+            privileges: ["all"]
           }
         ],
         run_as: []
@@ -33,7 +37,7 @@ class UserRepository
         indices: [
           {
             names: '*',
-            privileges: ['read']
+            privileges: ["read"]
           }
         ],
         run_as: []
@@ -64,11 +68,13 @@ class UserRepository
   async createAdmin(username,password)
     {
           // Create a new Elasticsearch client instance
-    const client = new Client({ node: 'http://localhost:9200' });
+    const client = new Client({ node: 'https://localhost:9200',   
+      auth: {
+      username: 'marius',
+      password: 'kottek'
+    } });
   try {
     // Define the user details
-    const username = username;
-    const password = password;
     const roles = ['admin_test'];
 
 
@@ -93,7 +99,7 @@ class UserRepository
   async createUser(username, password) {
   try {
         // Create a new Elasticsearch client instance
-        const client = new Client({ node: 'http://localhost:9200' });
+        const client = new Client({ node: 'https://localhost:9200' });
     // Define the user details
     const username = username;
     const password = password;
