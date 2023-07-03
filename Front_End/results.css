@@ -153,6 +153,17 @@
   font-family: var(--font-inter);
 }
 
+.answerDisplay {
+  position: absolute;
+  top: 400px;
+  left: 50%;
+  width: 70%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  transform: translate(-50%, -50%);
+}
+
 .resultsTable {
   position: absolute;
   top: 800px;

@@ -226,11 +226,11 @@ app.get('/search', async function(req, res) {
     const resultForAnswer = results[0];
 
     // Generate question-answer prompt
-    const qaPrompt = `This document "${resultForAnswer.title}" by ${resultForAnswer.author} contains the following information: "${resultForAnswer.content}". ${rawQuery}`;
+    const qaPrompt = `This document "${resultForAnswer.title}" by ${resultForAnswer.author} contains the following information: "${resultForAnswer.content}". Could you answer me this question from its content: "${rawQuery}"`;
 
     // Use OpenAI GPT-4 to generate an answer based on the search result and the original question
     const answer = await openai.createCompletion({
-      model: 'davinci-search-document',
+      model: 'text-davinci-003',
       prompt: qaPrompt,
       max_tokens: 256,
     });
