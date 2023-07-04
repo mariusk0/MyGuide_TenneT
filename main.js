@@ -1,4 +1,4 @@
-// Load enviroment var
+// Load environment var
 require('dotenv').config();
 
 const cors = require('cors');
@@ -9,23 +9,107 @@ const { Client } = require('@elastic/elasticsearch');
 const app = express();
 const pdfParse = require('pdf-parse');
 const bodyParser = require('body-parser');
+const path = require('path');
+
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 const upload = multer({ dest: 'uploads/' });
 
-// Disable Certificate Verification , only for development
+// Disable Certificate Verification, only for development
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const client = new Client({ 
-  node: 'https://localhost:9200',
-  auth: {
-    username: 'marius',
-    password: 'kottek'
+// Role System
+const UserRepository = require('./UserRepository');
+const userRepository = new UserRepository();
+
+// Set roles
+userRepository.setRoles().catch(console.error);
+
+// Create Users
+userRepository.createAdmin('admin', '123456').catch(console.error);
+userRepository.createUser('user', '123456').catch(console.error);
+
+// Log-In
+app.use(session({ secret: 'secret key', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'Front_End')));
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// In your passport strategy
+passport.use(new LocalStrategy(
+  async function(username, password, done) {
+    try {
+      const client = new Client({ node: 'https://localhost:9200' });
+      const { body } = await client.security.getUser({ name: username });
+
+      if (!body[username]) {
+        console.log('Incorrect username');
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+
+      const user = body[username];
+      const match = await bcrypt.compare(password, user.password);
+
+      if (!match) {
+        console.log('Incorrect password');
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+
+      return done(null, user);
+
+    } catch (error) {
+      console.log('Error in passport strategy', error);
+      return done(error);
+    }
   }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+// Ensure authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/login.html');
+  }
+}
+
+// Routes
+app.get('/login', function(req, res) {
+  res.sendFile(__dirname + '/login.html');
+});
+
+app.get('/index', function(req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login.html' }),
+  function(req, res) {
+    res.redirect('/index.html');
+  }
+);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/login.html');
 });
 
 
-app.use(cors());
-
+app.post('/upload-pdf', ensureAuthenticated, upload.single('pdf-file'), async (req, res) => {
 // UPLOAD FUNCTION
 
 // Create Summery function using openAI API
@@ -132,9 +216,9 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     }
   }
 });
+});
 
-
-
+app.get('/search', ensureAuthenticated, async function(req, res) {
 // SEARCH FUNCTION
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -197,7 +281,7 @@ app.get('/search', async function(req, res) {
     }
     });
 
-    console.log('Response:', JSON.stringify(response, null, 2));
+    //console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
@@ -211,7 +295,7 @@ app.get('/search', async function(req, res) {
         level: hit._source.doc_level,
       }));
     
-    console.log(results)
+    //console.log(results)
 
       res.json(results);
     } else {
@@ -223,44 +307,14 @@ app.get('/search', async function(req, res) {
     res.status(500).send('An error occurred while searching.');
   }
 });
-
-// SERVE PDF
-app.get('/pdfs/:title', async (req, res) => {
-  const { title } = req.params;
-  const result = await client.search({
-    index: 'pdfs',
-    body: {
-      query: {
-        match: { title }
-      }
-    }
-  });
-
-  if (result.hits.hits.length === 0) {
-    return res.status(404).send('Not found');
-  }
-
-  const pdfData = result.hits.hits[0]._source.data; // This is your base64 string
-  const buffer = Buffer.from(pdfData, 'base64');
-
-  res.writeHead(200, {
-    'Content-Type': 'application/pdf',
-    'Content-Disposition': 'attachment; filename=' + title + '.pdf',
-    'Content-Length': buffer.length
-  });
-
-  res.end(buffer);
 });
 
-// Role System
-const UserRepository = require('./userRepository');
-const userRepository = new UserRepository();
 
-// Set roles only needed once
-userRepository.setRoles().catch(console.error);
+app.use('/pdfs', express.static('pdfs'));
+// SERVE PDF
+const pdfHandler = require('./pdfHandler');
 
-userRepository.createAdmin('admin', 'admin').catch(console.error);
-userRepository.createUser('user', 'user').catch(console.error);
+app.use(pdfHandler);
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));

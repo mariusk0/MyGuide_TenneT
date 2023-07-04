@@ -59,7 +59,7 @@ class UserRepository
       console.error('Error creating/updating role:', error);
     } finally {
       // Close the Elasticsearch client
-      client.close();
+      //client.close();
     }
   }
 
@@ -92,17 +92,19 @@ class UserRepository
     console.error('Error creating admin:', error);
   } finally {
     // Close the Elasticsearch client
-    client.close();
+    //client.close();
   }
     }
 
   async createUser(username, password) {
   try {
         // Create a new Elasticsearch client instance
-        const client = new Client({ node: 'https://localhost:9200' });
+        const client = new Client({ node: 'https://localhost:9200',
+        auth: {
+          username: 'marius',
+          password: 'kottek'
+        } });
     // Define the user details
-    const username = username;
-    const password = password;
     const roles = ['user_test'];
 
 
@@ -120,10 +122,9 @@ class UserRepository
     console.error('Error creating user:', error);
   } finally {
     // Close the Elasticsearch client
-    client.close();
+    //client.close();
   }
     }
 }
-
 
 module.exports = UserRepository;
