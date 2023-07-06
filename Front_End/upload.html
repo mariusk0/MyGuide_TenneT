@@ -94,6 +94,11 @@
                 e.preventDefault();
                 var formData = new FormData(this);
                 $('#loading').show();
+
+                // retrieve the JWT from localStorage
+                var token = localStorage.getItem('jwt');
+                console.log(token)
+
                 $.ajax({
                     url: 'http://localhost:3000/upload-pdf',
                     type: 'POST',
@@ -101,6 +106,10 @@
                     cache: false,
                     contentType: false,
                     processData: false,
+                    // Include JWT in headers
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
+                    },
                     success: function (response) {
                         $('#loading').hide();
                         alert('PDF uploaded successfully!');

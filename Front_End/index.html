@@ -138,39 +138,47 @@
           src="./public/pexelsthisisengineering3861447-1-1@2x.png"
       />
   </div>
-
-    <script>
-      $(document).ready(function() {
-        $('form').submit(function(event) {
-          event.preventDefault();
-          const searchTerm = $('#searchTerm').val();
-          const language = $('#language').val();
-          const company_unit = $('#company_unit').val();
-          const subject = $('#subject').val();
-          const doc_type = $('#doc_type').val();
-          const doc_level = $('#doc_level').val();
-          $.ajax({
-            url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject + '&doc_type=' + doc_type + '&doc_level=' + doc_level, //server adress + query + filter
-            method: 'GET',
-            // store results in local storage
-            success: function(data) {
-              console.log(data);
-              localStorage.setItem('searchResults', JSON.stringify(data));
-              window.location.href = 'results.html';
-            },
-            error: function() {
-              $('#loadingIndicator').addClass('d-none');
-              alert('An error occurred while searching. Please try again later.');
-            }
-          });
-        });
-        // Reset Button
-        $('#reset').click(function() {
-          $('#searchTerm').val('');
-          $('#resultsTable').addClass('d-none');
-          $('#resultsBody').empty();
+  <script>
+    $(document).ready(function() {
+      $('form').submit(function(event) {
+        event.preventDefault();
+        const searchTerm = $('#searchTerm').val();
+        const language = $('#language').val();
+        const company_unit = $('#company_unit').val();
+        const subject = $('#subject').val();
+        const doc_type = $('#doc_type').val();
+        const doc_level = $('#doc_level').val();
+  
+        // Get the JWT from local storage
+        const token = localStorage.getItem('jwt');
+        console.log(token)
+  
+        $.ajax({
+          url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject + '&doc_type=' + doc_type + '&doc_level=' + doc_level, //server adress + query + filter
+          method: 'GET',
+          // Include JWT in headers
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
+          },
+          // store results in local storage
+          success: function(data) {
+            console.log(data);
+            localStorage.setItem('searchResults', JSON.stringify(data));
+            window.location.href = 'results.html';
+          },
+          error: function() {
+            alert('An error occurred while searching. Please try again later.');
+          }
         });
       });
-    </script>
+  
+      // Reset Button
+      $('#reset').click(function() {
+        $('#searchTerm').val('');
+        $('#resultsTable').addClass('d-none');
+        $('#resultsBody').empty();
+      });
+    });
+  </script>
   </body>
 </html>
