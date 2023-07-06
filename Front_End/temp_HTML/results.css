@@ -43,7 +43,24 @@
   font-weight: 300;
   color: var(--color-dimgray);
 }
-
+.beschreibung-der-guideline6 {
+  position: absolute;
+  height: 56.15%;
+  width: 86.69%;
+  top: 30.77%;
+  left: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  display: inline-block;
+}
+.artikel-eintrag6 {
+  position: absolute;
+  height: 6.46%;
+  top: 24.45%;
+  bottom: 69.09%;
+  left: calc(50% - 544px);
+  width: 1088px;
+}
 .myguidetennet1 {
   margin: 0;
   position: absolute;
@@ -216,77 +233,4 @@
   font-size: var(--font-size-5xl);
   color: var(--color-dodgerblue);
   font-family: var(--font-inter);
-}
-search-results {
-  position: relative;
-  margin-top: 2000px;
-  width: 100%;
-  max-height: 90vh; /* making height dynamic */
-  overflow-y: auto; /* scrollable content */
-  text-align: middle;
-  font-family: var(--font-inter);
-  padding: 20px; /* added padding around container */
-  box-sizing: border-box; /* padding included in width/height */
-  display: flex;
-  flex-direction: column; /* making children stack vertically */
-  gap: 20px; /* spacing between children */
-}
-
-/* Styles for individual result entries */
-.artikel-eintrag {
-  position: relative;
-  width: 100%;
-  background-color: #f9f9f9; /* background color */
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* shadow for separation */
-}
-
-/* Image and button styles */
-.vector-parent {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  margin-right: 10px; /* spacing between button and text */
-  float: left; /* positioning beside text */
-}
-
-.group-child {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  margin-right: 5px; /* spacing between images */
-}
-
-/* Title and unit styles */
-.titel-der-guideline-container {
-  display: flex;
-  align-items: baseline; /* align text baselines */
-  margin-bottom: 5px; /* spacing below title */
-}
-
-.titel-der-guideline {
-  font-size: 1.5em; /* make the title larger */
-  font-weight: 600;
-  color: var(--color-dodgerblue);
-}
-
-.unit {
-  font-size: 1em;
-  color: var(--color-gray);
-  margin-left: 5px; /* spacing after title */
-}
-
-/* Author styles */
-.autor {
-  font-size: 0.8em;
-  font-weight: 300;
-  color: var(--color-dimgray);
-  margin-bottom: 5px; /* spacing below author */
-}
-
-/* Description styles */
-.beschreibung-der-guideline {
-  font-size: 1em;
-  color: var(--color-black);
 }

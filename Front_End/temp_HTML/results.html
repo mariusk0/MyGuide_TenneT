@@ -22,13 +22,19 @@
     <div id="search-results" class="search-results">
       <!-- Search results will be populated here by JavaScript -->
     </div>
- 
+    <h1 class="myguidetennet">MyGuide@TenneT</h1>
+    <img
+      class="tennet-logo-icon"
+      alt="TenneT Logo"
+      src="./public/2560pxtennet-tso-logo-1@2x.png"
+    />
+
     <script>
       function displaySearchResults(data) {
         var resultsContainer = document.getElementById("search-results");
 
         // Loop through each result in the data
-        data.forEach(function (result) {
+        data.forEach(function(result) {
           var resultDiv = document.createElement("div");
           resultDiv.className = "artikel-eintrag";
 
@@ -37,9 +43,9 @@
           button.className = "vector-parent";
           var img1 = document.createElement("img");
           img1.className = "group-child";
-          img1.src = "./public/vector-9.svg";
+          img1.src ="./public/vector-9.svg";
           var img2 = document.createElement("img");
-          img2.className = "group-child"; // changed from 'group-item' to 'group-child'
+          img2.className = "group-item";
           img2.src = "./public/vector-114.svg";
           button.appendChild(img1);
           button.appendChild(img2);
@@ -51,10 +57,10 @@
           title.className = "titel-der-guideline";
           title.textContent = result.title;
           var unit = document.createElement("span");
-          unit.className = "unit";
+          unit.className = "company_unit";
           unit.textContent = " - " + result.company_unit;
           titleContainer.appendChild(title);
-          titleContainer.appendChild(unit);
+          titleContainer.appendChild(unit); // corrected from 'company_unit' to 'unit'
 
           // Author
           var author = document.createElement("div");
@@ -74,7 +80,6 @@
 
           // Appending result div to the results container
           resultsContainer.appendChild(resultDiv);
-
         });
       }
 
@@ -93,38 +98,28 @@
       }
     </script>
 
-    <h1 class="myguidetennet1">MyGuide@TenneT</h1>
-    <img
-      class="tennet-logo-icon1"
-      alt=""
-      src="./public/2560pxtennet-tso-logo-1@2x.png"
-    />
-
-    <div class="top-right1">
-      <div class="buttons1">
-        <div class="search-button1">
-          <img class="search-icon1" alt="" src="./public/search-icon.svg" />
-
-          <button class="search-functionality1"></button>
+    <div class="top-right">
+      <div class="buttons">
+        <div class="search-button">
+          <img class="search-icon" alt="Search icon" src="./public/search-icon.svg" />
+          <button class="search-functionality"></button>
         </div>
-        <div class="upload-button1">
-          <img class="upload-icon1" alt="" src="./public/upload-icon.svg" />
-
-          <button class="upload-functionality1"></button>
+        <div class="upload-button">
+          <img class="upload-icon" alt="Upload icon" src="./public/upload-icon.svg" />
+          <button class="upload-functionality"></button>
         </div>
-        <div class="favorite-button1">
-          <img class="favorite-icon1" alt="" src="./public/favorites.svg" />
-
-          <button class="favorite-functionality1"></button>
+        <div class="favorite-button">
+          <img class="favorite-icon" alt="Favorite icon" src="./public/favorites.svg" />
+          <button class="favorite-functionality"></button>
         </div>
-        <div class="help-button1">
-          <button class="help-functionality1"></button>
-          <img class="help-icon1" alt="" src="./public/help-icon1.svg" />
+        <div class="help-button">
+          <button class="help-functionality"></button>
+          <img class="help-icon" alt="Help icon" src="./public/help-icon.svg" />
         </div>
       </div>
       <img
-        class="user-picture-icon1"
-        alt=""
+        class="user-picture-icon"
+        alt="User picture"
         src="./public/pexelsthisisengineering3861447-1-1@2x.png"
       />
     </div>
