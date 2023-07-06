@@ -137,9 +137,8 @@ const isAdmin = (req, res, next) => {
 
 
 // UPLOAD FUNCTION ###############################################################################################
-app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (req, res) => {
 
-  // Create Summery function using openAI API
+// Create Summery function using openAI API
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -153,7 +152,7 @@ const getSummary = async (text) => {
     const response = await openai.createCompletion({
       model: 'text-davinci-003', // choose engine
       prompt: `Please provide a short summary of approximately 60 words, do not mention the title. My document is: ${text}\n`,
-      temperature: 1,
+      temperature: 0.9,
       max_tokens: 256, // how long should the summary be
     });
 
@@ -174,8 +173,7 @@ const getSummary = async (text) => {
 
 // Use express.static middleware to serve files from a directory
 app.use('/pdfs', express.static('pdfs'));
-
-app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
+app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (req, res) => {
   try {
     // Get data from form
     const pdfFile = req.file;
@@ -244,8 +242,6 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   }
 });
 
-});
-
 // SEARCH FUNCTION ###############################################################################################################
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -287,25 +283,56 @@ app.get('/search', verifyToken, async function(req, res) {
       filters.push({ match: { doc_type: doc_type } });
     };
 
-    const response = await client.search({
-      index: 'pdfs',
-       body: {
-        query: {
-          bool: {
-            must: {
-              multi_match: {
-                query: query,
-                fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
-                type: 'best_fields'
-              }
-            },
-            filter: filters
+    async function searchDocuments(query, filters) {
+      // First, try multi_match
+      let response = await client.search({
+        index: 'pdfs',
+        body: {
+          query: {
+            bool: {
+              must: {
+                multi_match: {
+                  query: query,
+                  fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                  type: 'best_fields',
+                  fuzziness: 'AUTO'
+                }
+              },
+              filter: filters
+            }
           }
         }
-       }
-    });
-
-    console.log('Response:', JSON.stringify(response, null, 2));
+      });
+    
+      // If no results from multi_match, try query_string
+      if (response && response.hits && response.hits.hits && response.hits.hits.length === 0) {
+        response = await client.search({
+          index: 'pdfs',
+          body: {
+            query: {
+              bool: {
+                must: {
+                  query_string: {
+                    query: "*" + query + "*",
+                    fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                    default_operator: "AND",
+                    fuzziness: 'AUTO'
+                  }
+                },
+                filter: filters
+              }
+            }
+          }
+        });
+      }
+    
+      return response;
+    }
+    
+    // Use the search function
+    const response = await searchDocuments(query, filters);
+    
+    //console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
@@ -319,7 +346,7 @@ app.get('/search', verifyToken, async function(req, res) {
         level: hit._source.doc_level,
       }));
     
-    console.log(results)
+    //console.log(results)
 
       res.json(results);
     } else {

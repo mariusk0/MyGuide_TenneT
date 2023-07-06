@@ -158,7 +158,7 @@
           method: 'GET',
           // Include JWT in headers
           beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + token); // Set the JWT in the Authorization header
+            xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
           },
           // store results in local storage
           success: function(data) {

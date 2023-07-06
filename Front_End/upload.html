@@ -96,7 +96,8 @@
                 $('#loading').show();
 
                 // retrieve the JWT from localStorage
-                var jwt = localStorage.getItem('jwt');
+                var token = localStorage.getItem('jwt');
+                console.log(token)
 
                 $.ajax({
                     url: 'http://localhost:3000/upload-pdf',
@@ -105,9 +106,9 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    // include the JWT in the 'Authorization' header
-                    headers: {
-                        'Authorization': 'Bearer ' + jwt
+                    // Include JWT in headers
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
                     },
                     success: function (response) {
                         $('#loading').hide();
