@@ -1,306 +1,149 @@
-.suchergebnisse-child {
-    position: absolute;
-    height: 96.45%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    bottom: 3.55%;
-    left: 0;
-    border-radius: 8px;
-    background-color: var(--color-white);
-    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
-  }
-  .group-child,
-  .group-item {
-    position: absolute;
-    top: calc(50% - 27.5px);
-    right: 6.37px;
-    width: 39.26px;
-    height: 37.05px;
-  }
-  .group-item {
-    top: calc(50% + 14.86px);
-    right: -1.5px;
-    border-radius: var(--br-11xs);
-    width: 55px;
-    height: 12.64px;
-  }
-  .vector-parent {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: calc(50% - 24px);
-    right: 2px;
-    width: 52px;
-    height: 52px;
-  }
-  .titel-der-guideline {
-    font-weight: 600;
-  }
-  .unit {
-    font-size: var(--font-size-xl);
-    color: var(--color-gray);
-  }
-  .autor,
-  .titel-der-guideline-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .autor {
-    top: 86.92%;
-    font-size: var(--font-size-sm);
-    font-weight: 300;
-    color: var(--color-dimgray);
-  }
-  .beschreibung-der-guideline {
-    position: absolute;
-    height: 56.15%;
-    width: 86.69%;
-    top: 30.77%;
-    left: 0;
-    font-size: var(--font-size-base);
-    color: var(--color-black);
-    display: inline-block;
-  }
-  .artikel-eintrag,
-  .artikel-eintrag1,
-  .artikel-eintrag2 {
-    position: absolute;
-    height: 11.26%;
-    width: 90.74%;
-    top: 5.63%;
-    right: 4.5%;
-    bottom: 83.12%;
-    left: 4.75%;
-  }
-  .artikel-eintrag1,
-  .artikel-eintrag2 {
-    top: 36.28%;
-    bottom: 52.47%;
-  }
-  .artikel-eintrag2 {
-    top: 51.6%;
-    bottom: 37.14%;
-  }
-  .artikel-eintrag3,
-  .artikel-eintrag4,
-  .artikel-eintrag5,
-  .suchergebnisse {
-    position: absolute;
-    height: 11.26%;
-    width: 90.74%;
-    top: 66.93%;
-    right: 4.5%;
-    bottom: 21.82%;
-    left: 4.75%;
-  }
-  .artikel-eintrag4,
-  .artikel-eintrag5,
-  .suchergebnisse {
-    top: 82.25%;
-    bottom: 6.49%;
-  }
-  .artikel-eintrag5,
-  .suchergebnisse {
-    top: 20.95%;
-    bottom: 67.79%;
-  }
-  .suchergebnisse {
-    height: 57.41%;
-    width: 62.45%;
-    top: 21.47%;
-    right: 18.8%;
-    bottom: 21.12%;
-    left: 18.75%;
-    text-align: left;
-    font-size: var(--font-size-5xl);
-    color: var(--color-dodgerblue);
-    font-family: var(--font-inter);
-  }
-  .myguidetennet2 {
-    margin: 0;
-    position: absolute;
-    top: 300px;
-    left: 50%;
-    font-size: 60px;
-    font-weight: bold;
-    font-family: Roboto;
-    display: inline-block;
-    transform: translate(-50%, -50%);
-    color: #003584;
-  }
-  
-  .tennet-logo-icon2 {
-    position: absolute;
-    top: 56px;
-    left: 158px;
-    width: 300px;
-    height: 61.36px;
-    object-fit: cover;
-  }
-  .search-results {
-    position: relative;
-    background-color: var(--color-white);
-    width: 100%;
-    height: 2012px;
-    overflow-x: auto;
-    text-align: center;
-    font-size: var(--font-size-45xl);
-    color: var(--color-darkslateblue-100);
-    font-family: var(--font-inter);
-  }
-  
- 
-  
-  .search-functionality,
-  .search-icon {
-    position: absolute;
-    left: calc(50% - 24.5px);
-  }
-  .search-icon {
-    height: 74.07%;
-    top: 16.67%;
-    bottom: 9.26%;
-    max-height: 100%;
-    width: 43px;
-  }
-  .search-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    top: 0;
-    width: 49px;
-    height: 54px;
-    overflow: hidden;
-  }
-  .search-button1,
-  .upload-icon {
-    position: absolute;
-    height: 73.97%;
-    top: 0;
-    bottom: 26.03%;
-    left: calc(50% - 120px);
-    width: 49px;
-  }
-  .upload-icon {
-    height: 82.61%;
-    top: 10.87%;
-    bottom: 6.52%;
-    left: calc(50% - 23px);
-    max-height: 100%;
-    width: 40px;
-  }
-  .upload-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 46px;
-    overflow: hidden;
-  }
-  .upload-button {
-    position: absolute;
-    height: 63.01%;
-    top: 12.33%;
-    bottom: 24.66%;
-    left: calc(50% - 57px);
-    width: 48px;
-  }
-  .favorite-icon {
-    position: absolute;
-    top: -1.5px;
-    left: -1.5px;
-    width: 42px;
-    height: 37px;
-  }
-  .favorite-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 19.5px);
-    width: 39px;
-    height: 35px;
-    overflow: hidden;
-  }
-  .favorite-button {
-    position: absolute;
-    top: 14px;
-    left: 125px;
-    width: 39px;
-    height: 35px;
-  }
-  .help-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 24.5px);
-    width: 48px;
-    height: 46px;
-    overflow: hidden;
-  }
-  .help-button,
-  .help-icon {
-    position: absolute;
-    top: 2px;
-    width: 55px;
-  }
-  .help-icon {
-    left: calc(50% - 27.5px);
-    height: 69px;
-    overflow: hidden;
-  }
-  .help-button {
-    left: calc(50% + 65px);
-    height: 71px;
-  }
-  .buttons {
-    position: relative;
-    width: 240px;
-    height: 73px;
-  }
-  .user-picture-icon {
-    position: relative;
-    border-radius: var(--br-256xl);
-    width: 102px;
-    height: 102px;
-    object-fit: cover;
-  }
-  .search,
-  .top-right {
-    background-color: var(--color-white);
-  }
-  .top-right {
-    position: absolute;
-    top: 43px;
-    right: 60px;
-    width: 369px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: var(--gap-10xl);
-  }
-  .search {
-    position: relative;
-    width: 100%;
-    height: 2012px;
-    overflow-x: auto;
-    text-align: center;
-    font-size: 80px;
-    color: var(--color-darkslateblue-100);
-    font-family: var(--font-inter);
-  }
+search-functionality,
+.search-icon {
+  position: absolute;
+  left: calc(50% - 24.5px);
+}
+.search-icon {
+  height: 74.07%;
+  top: 16.67%;
+  bottom: 9.26%;
+  max-height: 100%;
+  width: 43px;
+}
+.search-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 0;
+  width: 49px;
+  height: 54px;
+  overflow: hidden;
+}
+.search-button1,
+.upload-icon {
+  position: absolute;
+  height: 73.97%;
+  top: 0;
+  bottom: 26.03%;
+  left: calc(50% - 120px);
+  width: 49px;
+}
+.upload-icon {
+  height: 82.61%;
+  top: 10.87%;
+  bottom: 6.52%;
+  left: calc(50% - 23px);
+  max-height: 100%;
+  width: 40px;
+}
+.upload-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.upload-button {
+  position: absolute;
+  height: 63.01%;
+  top: 12.33%;
+  bottom: 24.66%;
+  left: calc(50% - 57px);
+  width: 48px;
+}
+.favorite-icon {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 42px;
+  height: 37px;
+}
+.favorite-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 19.5px);
+  width: 39px;
+  height: 35px;
+  overflow: hidden;
+}
+.favorite-button {
+  position: absolute;
+  top: 14px;
+  left: 125px;
+  width: 39px;
+  height: 35px;
+}
+.help-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24.5px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.help-button,
+.help-icon {
+  position: absolute;
+  top: 2px;
+  width: 55px;
+}
+.help-icon {
+  left: calc(50% - 27.5px);
+  height: 69px;
+  overflow: hidden;
+}
+.help-button {
+  left: calc(50% + 65px);
+  height: 71px;
+}
+.buttons {
+  position: relative;
+  width: 240px;
+  height: 73px;
+}
+.user-picture-icon {
+  position: relative;
+  border-radius: var(--br-256xl);
+  width: 102px;
+  height: 102px;
+  object-fit: cover;
+}
+.search,
+.top-right {
+  background-color: var(--color-white);
+}
+.top-right {
+  position: absolute;
+  top: 43px;
+  right: 60px;
+  width: 369px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-10xl);
+}
+.search {
+  position: relative;
+  width: 100%;
+  height: 2012px;
+  overflow-x: auto;
+  text-align: center;
+  font-size: 80px;
+  color: var(--color-darkslateblue-100);
+  font-family: var(--font-inter);
+}
