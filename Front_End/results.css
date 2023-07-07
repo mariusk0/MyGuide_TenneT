@@ -152,7 +152,7 @@
   left: calc(50% - 608px);
   font-size: var(--font-size-45xl);
   font-weight: 700;
-  font-family: inherit;
+  font-family: 'Roboto', sans-serif; 
   color: var(--color-darkslateblue-100);
   text-align: center;
   display: inline-block;

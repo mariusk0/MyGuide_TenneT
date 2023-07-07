@@ -1,18 +1,16 @@
 .myguidetennet1 {
   margin: 0;
-  position: relative;
-  font-size: 200;
-  font-weight: bold;
-  font-family: var(--font-roboto);
-}
-.myguidetennet {
   position: absolute;
-  top: 350px;
-  left: calc(50% - 291px);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  top: 279px;
+  left: calc(50% - 608px);
+  font-size: var(--font-size-45xl);
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif; 
+  color: var(--color-darkslateblue-100);
+  text-align: center;
+  display: inline-block;
+  width: 1215px;
+  height: 77px;
 }
 .tennet-logo-icon2 {
   position: absolute;
@@ -125,18 +123,7 @@
   color: var(--color-darkslateblue-100);
   font-family: var(--font-inter);
 }
-.myguidetennet2 {
-  margin: 0;
-  position: absolute;
-  top: 300px;
-  left: 50%;
-  font-size: 60px;
-  font-weight: bold;
-  font-family: Roboto;
-  display: inline-block;
-  transform: translate(-50%, -50%);
-  color: #003584;
-}
+
 @media screen and (max-width: 960px) {
   .user-input {
     flex: unset;
