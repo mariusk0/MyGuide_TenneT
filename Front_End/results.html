@@ -20,78 +20,75 @@
   </head>
   <body>
     <div id="search-results" class="search-results">
-      <!-- Search results will be populated here by JavaScript -->
-    </div>
- 
-    <script>
-      function displaySearchResults(data) {
-        var resultsContainer = document.getElementById("search-results");
+      <script>
+        function displaySearchResults(data) {
+          var resultsContainer = document.getElementById("search-results");
+  
+          // Loop through each result in the data
+          data.forEach(function (result) {
+            var resultDiv = document.createElement("div");
+            resultDiv.className = "search-result";
+  
+            // Button with vector images
+            var button = document.createElement("button");
+            button.className = "vector-parent";
+            var img = document.createElement("img");
+            img.className = "group-child";
+            img.src = "./public/download-button.svg";
+            button.appendChild(img);
 
-        // Loop through each result in the data
-        data.forEach(function (result) {
-          var resultDiv = document.createElement("div");
-          resultDiv.className = "artikel-eintrag";
 
-          // Button with vector images
-          var button = document.createElement("button");
-          button.className = "vector-parent";
-          var img1 = document.createElement("img");
-          img1.className = "group-child";
-          img1.src = "./public/vector-9.svg";
-          var img2 = document.createElement("img");
-          img2.className = "group-child"; // changed from 'group-item' to 'group-child'
-          img2.src = "./public/vector-114.svg";
-          button.appendChild(img1);
-          button.appendChild(img2);
-
-          // Title
-          var titleContainer = document.createElement("div");
-          titleContainer.className = "titel-der-guideline-container";
-          var title = document.createElement("span");
-          title.className = "titel-der-guideline";
-          title.textContent = result.title;
-          var unit = document.createElement("span");
-          unit.className = "unit";
-          unit.textContent = " - " + result.company_unit;
-          titleContainer.appendChild(title);
-          titleContainer.appendChild(unit);
-
-          // Author
-          var author = document.createElement("div");
-          author.className = "autor";
-          author.textContent = result.created_at + " - " + result.author;
-
-          // Summary
-          var description = document.createElement("div");
-          description.className = "beschreibung-der-guideline";
-          description.textContent = result.summary;
-
-          // Appending elements to the result div
-          resultDiv.appendChild(button);
-          resultDiv.appendChild(titleContainer);
-          resultDiv.appendChild(author);
-          resultDiv.appendChild(description);
-
-          // Appending result div to the results container
-          resultsContainer.appendChild(resultDiv);
-
-        });
-      }
-
-      // Fetching data from local storage
-      var storedData = localStorage.getItem("searchResults");
-
-      if (storedData) {
-        try {
-          var parsedData = JSON.parse(storedData); // Parse the stringified data
-          displaySearchResults(parsedData); // Call function to display results
-        } catch (error) {
-          console.error("Error parsing stored search results: ", error);
+            // Title
+            var titleContainer = document.createElement("div");
+            titleContainer.className = "titel-der-guideline-container";
+            var title = document.createElement("span");
+            title.className = "titel-der-guideline";
+            title.textContent = result.title;
+            var unit = document.createElement("span");
+            unit.className = "unit";
+            unit.textContent = " - " + result.company_unit;
+            titleContainer.appendChild(title);
+            titleContainer.appendChild(unit);
+  
+            // Author
+            var author = document.createElement("div");
+            author.className = "autor";
+            author.textContent = result.created_at + " - " + result.autor;
+  
+            // Summary
+            var description = document.createElement("div");
+            description.className = "beschreibung-der-guideline";
+            description.textContent = result.summary;
+  
+            // Appending elements to the result div
+            resultDiv.appendChild(button);
+            resultDiv.appendChild(titleContainer);
+            resultDiv.appendChild(author);
+            resultDiv.appendChild(description);
+  
+            // Appending result div to the results container
+            resultsContainer.appendChild(resultDiv);
+  
+          });
         }
-      } else {
-        console.error("No search results found in local storage.");
-      }
-    </script>
+  
+        // Fetching data from local storage
+        var storedData = localStorage.getItem("searchResults");
+  
+        if (storedData) {
+          try {
+            var parsedData = JSON.parse(storedData); // Parse the stringified data
+            displaySearchResults(parsedData); // Call function to display results
+          } catch (error) {
+            console.error("Error parsing stored search results: ", error);
+          }
+        } else {
+          console.error("No search results found in local storage.");
+        }
+      </script>
+    </div>"
+ 
+   
 
     <h1 class="myguidetennet1">MyGuide@TenneT</h1>
     <img
