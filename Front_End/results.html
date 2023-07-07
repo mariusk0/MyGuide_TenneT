@@ -29,9 +29,11 @@
             var resultDiv = document.createElement("div");
             resultDiv.className = "search-result";
   
-            // Button with vector images
-            var button = document.createElement("button");
+            // Download Button with vector images
+            var button = document.createElement("a"); // Use <a> instead of <button>
             button.className = "vector-parent";
+            button.href = result.url; // Set the download URL
+            button.download = "document"; // Set the default download file name
             var img = document.createElement("img");
             img.className = "group-child";
             img.src = "./public/download-button.svg";
@@ -87,7 +89,36 @@
         }
       </script>
     </div>"
- 
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/search-icon.svg" />
+              <a href="index.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
+          class="user-picture-icon"
+          alt=""
+          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
+      />
+  </div>
+
    
 
     <h1 class="myguidetennet1">MyGuide@TenneT</h1>
@@ -96,34 +127,6 @@
       alt=""
       src="./public/2560pxtennet-tso-logo-1@2x.png"
     />
-
-    <div class="top-right1">
-      <div class="buttons1">
-        <div class="search-button1">
-          <img class="search-icon1" alt="" src="./public/search-icon.svg" />
-
-          <button class="search-functionality1"></button>
-        </div>
-        <div class="upload-button1">
-          <img class="upload-icon1" alt="" src="./public/upload-icon.svg" />
-
-          <button class="upload-functionality1"></button>
-        </div>
-        <div class="favorite-button1">
-          <img class="favorite-icon1" alt="" src="./public/favorites.svg" />
-
-          <button class="favorite-functionality1"></button>
-        </div>
-        <div class="help-button1">
-          <button class="help-functionality1"></button>
-          <img class="help-icon1" alt="" src="./public/help-icon1.svg" />
-        </div>
-      </div>
-      <img
-        class="user-picture-icon1"
-        alt=""
-        src="./public/pexelsthisisengineering3861447-1-1@2x.png"
-      />
-    </div>
   </body>
 </html>
+
