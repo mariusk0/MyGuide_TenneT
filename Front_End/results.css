@@ -1,25 +1,16 @@
-
-.tennet-logo-icon1 {
-  position: absolute;
-  top: 56px;
-  left: 158px;
-  width: 300px;
-  height: 61.36px;
-  object-fit: cover;
-}
-.search-functionality1,
-.search-icon1 {
+.search-functionality,
+.search-icon {
   position: absolute;
   left: calc(50% - 24.5px);
 }
-.search-icon1 {
+.search-icon {
   height: 74.07%;
   top: 16.67%;
   bottom: 9.26%;
   max-height: 100%;
   width: 43px;
 }
-.search-functionality1 {
+.search-functionality {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -30,7 +21,7 @@
   overflow: hidden;
 }
 .search-button1,
-.upload-icon1 {
+.upload-icon {
   position: absolute;
   height: 73.97%;
   top: 0;
@@ -38,7 +29,7 @@
   left: calc(50% - 120px);
   width: 49px;
 }
-.upload-icon1 {
+.upload-icon {
   height: 82.61%;
   top: 10.87%;
   bottom: 6.52%;
@@ -46,7 +37,7 @@
   max-height: 100%;
   width: 40px;
 }
-.upload-functionality1 {
+.upload-functionality {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -58,7 +49,7 @@
   height: 46px;
   overflow: hidden;
 }
-.upload-button1 {
+.upload-button {
   position: absolute;
   height: 63.01%;
   top: 12.33%;
@@ -66,14 +57,14 @@
   left: calc(50% - 57px);
   width: 48px;
 }
-.favorite-icon1 {
+.favorite-icon {
   position: absolute;
   top: -1.5px;
   left: -1.5px;
   width: 42px;
   height: 37px;
 }
-.favorite-functionality1 {
+.favorite-functionality {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -85,14 +76,14 @@
   height: 35px;
   overflow: hidden;
 }
-.favorite-button1 {
+.favorite-button {
   position: absolute;
   top: 14px;
   left: 125px;
   width: 39px;
   height: 35px;
 }
-.help-functionality1 {
+.help-functionality {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -104,40 +95,38 @@
   height: 46px;
   overflow: hidden;
 }
-.help-button1,
-.help-icon1 {
+.help-button,
+.help-icon {
   position: absolute;
   top: 2px;
   width: 55px;
 }
-.help-icon1 {
+.help-icon {
   left: calc(50% - 27.5px);
   height: 69px;
   overflow: hidden;
 }
-.help-button1 {
+.help-button {
   left: calc(50% + 65px);
   height: 71px;
 }
-.buttons1 {
+.buttons {
   position: relative;
   width: 240px;
   height: 73px;
 }
-.user-picture-icon1 {
-  flex: 1;
+.user-picture-icon {
   position: relative;
   border-radius: var(--br-256xl);
-  max-width: 100%;
-  overflow: hidden;
+  width: 102px;
   height: 102px;
   object-fit: cover;
 }
-
-.top-right1 {
+.search,
+.top-right {
   background-color: var(--color-white);
 }
-.top-right1 {
+.top-right {
   position: absolute;
   top: 43px;
   right: 60px;
@@ -147,6 +136,14 @@
   align-items: center;
   justify-content: center;
   gap: var(--gap-10xl);
+}
+.tennet-logo-icon1 {
+  position: absolute;
+  top: 56px;
+  left: 158px;
+  width: 300px;
+  height: 61.36px;
+  object-fit: cover;
 }
 .myguidetennet1 {
   margin: 0;
