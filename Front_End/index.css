@@ -1,8 +1,23 @@
+.logo-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  position: relative;
+  width: 100%;
+  top: 297px
+}
+
+.my-guide-at-tennet-logo {
+  position: relative;
+  top: -9px; /* adjust for difference in top values of original logo and heading */
+  left: -315px; /* adjust this value for horizontal spacing between heading and logo */
+  width: 80px;
+  height: 80px;
+}
+
 .myguidetennet1 {
   margin: 0;
-  position: absolute;
-  top: 279px;
-  left: calc(50% - 608px);
+  position: relative;
   font-size: var(--font-size-45xl);
   font-weight: 700;
   font-family: 'Roboto', sans-serif; 
@@ -12,6 +27,7 @@
   width: 1215px;
   height: 77px;
 }
+
 .tennet-logo-icon2 {
   position: absolute;
   top: 56px;
