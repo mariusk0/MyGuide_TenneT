@@ -1,4 +1,142 @@
-
+.search-functionality,
+.search-icon {
+  position: absolute;
+  left: calc(50% - 24.5px);
+}
+.search-icon {
+  height: 74.07%;
+  top: 16.67%;
+  bottom: 9.26%;
+  max-height: 100%;
+  width: 43px;
+}
+.search-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 0;
+  width: 49px;
+  height: 54px;
+  overflow: hidden;
+}
+.search-button1,
+.upload-icon {
+  position: absolute;
+  height: 73.97%;
+  top: 0;
+  bottom: 26.03%;
+  left: calc(50% - 120px);
+  width: 49px;
+}
+.upload-icon {
+  height: 82.61%;
+  top: 10.87%;
+  bottom: 6.52%;
+  left: calc(50% - 23px);
+  max-height: 100%;
+  width: 40px;
+}
+.upload-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.upload-button {
+  position: absolute;
+  height: 63.01%;
+  top: 12.33%;
+  bottom: 24.66%;
+  left: calc(50% - 57px);
+  width: 48px;
+}
+.favorite-icon {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 42px;
+  height: 37px;
+}
+.favorite-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 19.5px);
+  width: 39px;
+  height: 35px;
+  overflow: hidden;
+}
+.favorite-button {
+  position: absolute;
+  top: 14px;
+  left: 125px;
+  width: 39px;
+  height: 35px;
+}
+.help-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24.5px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.help-button,
+.help-icon {
+  position: absolute;
+  top: 2px;
+  width: 55px;
+}
+.help-icon {
+  left: calc(50% - 27.5px);
+  height: 69px;
+  overflow: hidden;
+}
+.help-button {
+  left: calc(50% + 65px);
+  height: 71px;
+}
+.buttons {
+  position: relative;
+  width: 240px;
+  height: 73px;
+}
+.user-picture-icon {
+  position: relative;
+  border-radius: var(--br-256xl);
+  width: 102px;
+  height: 102px;
+  object-fit: cover;
+}
+.search,
+.top-right {
+  background-color: var(--color-white);
+}
+.top-right {
+  position: absolute;
+  top: 43px;
+  right: 60px;
+  width: 369px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-10xl);
+}
 .tennet-logo-icon {
     position: absolute;
     top: 56px;
@@ -7,130 +145,7 @@
     height: 61.36px;
     object-fit: cover;
   }
-  .search-functionality,
-  .search-icon {
-    position: absolute;
-    left: calc(50% - 24.5px);
-  }
-  .search-icon {
-    height: 74.07%;
-    top: 16.67%;
-    bottom: 9.26%;
-    max-height: 100%;
-    width: 43px;
-  }
-  .search-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    top: 0;
-    width: 49px;
-    height: 54px;
-    overflow: hidden;
-  }
-  .search-button1,
-  .upload-icon {
-    position: absolute;
-    height: 73.97%;
-    top: 0;
-    bottom: 26.03%;
-    left: calc(50% - 120px);
-    width: 49px;
-  }
-  .upload-icon {
-    height: 82.61%;
-    top: 10.87%;
-    bottom: 6.52%;
-    left: calc(50% - 23px);
-    max-height: 100%;
-    width: 40px;
-  }
-  .upload-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 46px;
-    overflow: hidden;
-  }
-  .upload-button {
-    position: absolute;
-    height: 63.01%;
-    top: 12.33%;
-    bottom: 24.66%;
-    left: calc(50% - 57px);
-    width: 48px;
-  }
-  .favorite-icon {
-    position: absolute;
-    top: -1.5px;
-    left: -1.5px;
-    width: 42px;
-    height: 37px;
-  }
-  .favorite-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 19.5px);
-    width: 39px;
-    height: 35px;
-    overflow: hidden;
-  }
-  .favorite-button {
-    position: absolute;
-    top: 14px;
-    left: 125px;
-    width: 39px;
-    height: 35px;
-  }
-  .help-functionality {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 24.5px);
-    width: 48px;
-    height: 46px;
-    overflow: hidden;
-  }
-  .help-button,
-  .help-icon {
-    position: absolute;
-    top: 2px;
-    width: 55px;
-  }
-  .help-icon {
-    left: calc(50% - 27.5px);
-    height: 69px;
-    overflow: hidden;
-  }
-  .help-button {
-    left: calc(50% + 65px);
-    height: 71px;
-  }
-  .buttons {
-    position: relative;
-    width: 240px;
-    height: 73px;
-  }
-  .user-picture-icon {
-    position: relative;
-    border-radius: var(--br-256xl);
-    width: 102px;
-    height: 102px;
-    object-fit: cover;
-  }
+
   .search,
   .top-right {
     background-color: var(--color-white);
