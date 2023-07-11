@@ -1,25 +1,3 @@
-.my-guide-at-tennet-logo {
-  position: relative;
-  top: -9px; /* adjust for difference in top values of original logo and heading */
-  left: -315px; /* adjust this value for horizontal spacing between heading and logo */
-  width: 80px;
-  height: 80px;
-}
-
-.myguidetennet1 {
-  margin: 0;
-  position: relative;
-  font-size: var(--font-size-45xl);
-  font-weight: 700;
-  font-family: 'Roboto', sans-serif; 
-  color: var(--color-darkslateblue-100);
-  text-align: center;
-  display: inline-block;
-  width: 1215px;
-  height: 77px;
-}
-
-
 .search-functionality,
 .search-icon {
   position: absolute;
@@ -469,22 +447,22 @@
     gap: var(--gap-3xs);
   }
   .upload-box {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: calc(50% - 678px);
+    left: calc(50% - 386px);
     border-radius: var(--br-5xl);
     box-shadow: 4px 4px 48px rgba(0, 0, 0, 0.18);
     width: 662px;
     height: 966px;
     mix-blend-mode: normal;
   }
-  
-
+  .hochladen {
+    flex: 1;
+    position: relative;
+  }
   .synced {
     position: absolute;
-    top: calc(35%+100px);
-    left: calc(50%);
+    top: calc(50% + 218px);
+    left: calc(50% - 386px);
     border-radius: 0 0 var(--br-5xl) var(--br-5xl);
     background-color: var(--flat-grey);
     width: 662px;
@@ -500,11 +478,6 @@
     color: var(--grey-05);
     font-family: var(--font-roboto);
   }
-  
-
-
-
-  
   .upload {
     position: relative;
     background-color: var(--white);
@@ -516,4 +489,4 @@
     color: #000;
     font-family: var(--font-helvetica);
   }
-
+  
