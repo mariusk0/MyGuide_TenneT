@@ -19,19 +19,14 @@
     />
   </head>
   
+  <body>
     <main class="upload">
       <img
         class="tennet-logo-icon"
         alt=""
         src="./public/2560pxtennet-tso-logo-1@2x.png"
       />
-
-      <body>
-        <h1 class="myguidetennet1">MyGuide@TenneT</h1>
-        <img 
-        class="my-guide-at-tennet-logo"
-        src="./public/Logo_Guide_V3_blue.svg"
-        />
+        
         <div class="top-right">
           <div class="buttons">
               <div class="search-button1">
@@ -63,76 +58,67 @@
       </div>
       
       <form id="pdf-upload-form" method="POST" enctype="multipart/form-data">
-        <div class="upload-box">
-            <div class="top-line"></div>
-            <div class="line"></div>
-            <input class="autor-button" type="text" placeholder="Autor eingeben..." name="autherU" id="autherU" required />
-
-            <select class="language-box" name="language" id="language" required>
-                <option value="">Wähle Sprache</option>
-                <option value="Deutsch">Deutsch</option>
-                <option value="Englisch">Englisch</option>
-                <option value="Niederländisch">Niederländisch</option>
-            </select>
-            <div class="line1"></div>
-            <select class="organisationseinheit" name="company_unit" id="company_unit" required>
-                <option value="">Wähle Organisationseinheit</option>
-                <option value="Audit, Risk & Internal Control ">Audit, Risk & Internal Control</option>
-                <option value="Board Office">Board Office</option>
-                <option value="Business Guidance">Business Guidance</option>
-                <option value="Asset Managment">Asset Managment</option>
-            </select>
-            <div class="line2"></div>
-            <div class="line3"></div>
-            <select class="document-type-box" name="doc_type" id="doc_type" required>
-                <option value="">Wähle den Dokumententyp</option>
-                <option value="Corporate Policy">Corporate Policy</option>
-                <option value="Functional Description">Functional Description</option>
-                <option value="Handbook ">Handbook</option>
-                <option value="Other">Other</option>
-            </select>
-            <select class="owner-box" name="doc_level" id="doc_level" required>
-                <option value="">Wähle Dokumentenlevel</option>
-                <option value="Level 0">Level 0</option>
-                <option value="Level 1">Level 1</option>
-                <option value="Level 2">Level 2</option>
-            </select>
-            <div class="line4"></div>
-            <img class="line-icon" alt="" />
-
-            <input class="file" type="file" id="pdf-file" name="pdf-file" required>
-
-            <textarea class="bottom-content1"></textarea>
-            <div class="description1">
-                <div class="select-a-file">
-                    Durchsuche deine Dateien oder ziehe sie auf dieses Feld
-                </div>
-                <div class="jpg-png-or1">
-                    JPG, PNG or PDF, file size no more than 10MB
-                </div>
+        
+        <div class="container">
+            <div class="upload-box">
+                <label for="file-upload" class="button1">
+                    <div class="datei-auswhlen">DATEI AUSWÄHLEN</div>
+                    <input id="file-upload" type="file" name="pdf-file" required style="display: none;">
+                </label>
+                <div class="top-line"></div>
+                <div class="line"></div>
+                <input class="autor-button" type="text" placeholder="Autor eingeben..." name="autherU" id="autherU" required />
+                <select class="language-box" name="language" id="language" required>
+                    <option value="">Wähle Sprache</option>
+                    <option value="Deutsch">Deutsch</option>
+                    <option value="Englisch">Englisch</option>
+                    <option value="Niederländisch">Niederländisch</option>
+                </select>
+                <div class="line1"></div>
+                <select class="organisationseinheit" name="company_unit" id="company_unit" required>
+                    <option value="">Wähle Organisationseinheit</option>
+                    <option value="Audit, Risk & Internal Control ">Audit, Risk & Internal Control</option>
+                    <option value="Board Office">Board Office</option>
+                    <option value="Business Guidance">Business Guidance</option>
+                    <option value="Asset Managment">Asset Managment</option>
+                </select>
+                <div class="line2"></div>
+                <div class="line3"></div>
+                <select class="document-type-box" name="doc_type" id="doc_type" required>
+                    <option value="">Wähle den Dokumententyp</option>
+                    <option value="Corporate Policy">Corporate Policy</option>
+                    <option value="Functional Description">Functional Description</option>
+                    <option value="Handbook ">Handbook</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select class="owner-box" name="doc_level" id="doc_level" required>
+                    <option value="">Wähle Dokumentenlevel</option>
+                    <option value="Level 0">Level 0</option>
+                    <option value="Level 1">Level 1</option>
+                    <option value="Level 2">Level 2</option>
+                </select>
+                <div class="line4"></div>
+                <img class="line-icon" alt="" />
+                <textarea class="bottom-content1"></textarea>
+                <input class="titel-button" type="text" placeholder="Titel eingeben" name="titleU" id="titleU" required />
+                <div class="line5"></div>
+                <div class="line6"></div>
+                <select class="security-box" name="subject" id="subject" required>
+                    <option value="">Wähle Themenbereich</option>
+                    <option value="Organization & Principles">
+                        Organization & Principles
+                    </option>
+                    <option value="Corporate Policies">Corporate Policies</option>
+                    <option value="Units & Commitees">Units & Commitees</option>
+                    <option value="Templates & Governance">Templates & Governance</option>
+                </select>
             </div>
-            <button class="button1" type="submit">
-                <div class="datei-auswhlen">DATEI AUSWÄHLEN</div>
-            </button>
-            <input class="titel-button" type="text" placeholder="Titel eingeben" name="titleU" id="titleU" required />
 
-            <div class="line5"></div>
-            <div class="line6"></div>
-            <select class="security-box" name="subject" id="subject" required>
-                <option value="">Wähle Themenbereich</option>
-                <option value="Organization & Principles">
-                    Organization & Principles
-                </option>
-                <option value="Corporate Policies">Corporate Policies</option>
-                <option value="Units & Commitees">Units & Commitees</option>
-                <option value="Templates & Governance">Templates & Governance</option>
-            </select>
-            <div class="synced">
-              <button type="submit" class="btn btn-primary">Hochladen</button>
-          </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Upload PDF</button>
+            </div>
         </div>
-
-    </form>
+      </form>
     </main>
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -162,6 +148,5 @@
             });
         });
     });
-</script>
+  </script>
 </html>
-

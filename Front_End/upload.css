@@ -19,7 +19,6 @@
   height: 77px;
 }
 
-
 .search-functionality,
 .search-icon {
   position: absolute;
@@ -479,12 +478,10 @@
     height: 966px;
     mix-blend-mode: normal;
   }
-  
-
-  .synced {
+  .text-center {
     position: absolute;
-    top: calc(35%+100px);
-    left: calc(50%);
+    top: calc(50% + 110px);
+    left: calc(50% - 331px);
     border-radius: 0 0 var(--br-5xl) var(--br-5xl);
     background-color: var(--flat-grey);
     width: 662px;
@@ -503,8 +500,6 @@
   
 
 
-
-  
   .upload {
     position: relative;
     background-color: var(--white);
@@ -517,3 +512,19 @@
     font-family: var(--font-helvetica);
   }
 
+  .hochladen, .btn-primary {
+    flex: 1;
+    position: relative;
+  }
+  
+
+  
+  /* To remove button default styles */
+  .btn-primary {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    outline: inherit;
+  }
