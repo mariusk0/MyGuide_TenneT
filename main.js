@@ -6,11 +6,11 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const { Client } = require('@elastic/elasticsearch');
-const app = express();
 const pdfParse = require('pdf-parse');
 const bodyParser = require('body-parser');
-
 const upload = multer({ dest: 'uploads/' });
+
+const app = express();
 
 // Disable Certificate Verification , only for development
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -23,10 +23,120 @@ const client = new Client({
   }
 });
 
-
 app.use(cors());
+app.use(express.json());
+app.use(express.static('Front_End'));
 
-// UPLOAD FUNCTION
+// User Index
+client.indices.create({
+  index: 'users',
+  body: {
+    mappings: {
+      properties: {
+        username: { type: 'keyword' },
+        password: { type: 'keyword' },
+        role: { type: 'keyword' }
+      }
+    }
+  }
+}, { ignore: [400] });
+
+// Rollensystem ##################################################################################################
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+app.post('/register', async (req, res) => {
+  const { username, password, role } = req.body;
+
+  // Check if user already exists
+  const user = await client.search({
+    index: 'users',
+    body: {
+      query: {
+        match: { username }
+      }
+    }
+  });
+  console.log(user);
+
+  if (user.hits.total.value > 0) {
+    return res.status(400).send('User already exists');
+  }
+
+  // Hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Store user in Elasticsearch
+  await client.index({
+    index: 'users',
+    id: username,
+    body: {
+      username,
+      password: hashedPassword,
+      role
+    }
+  });
+
+  res.send('User created successfully');
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  // Check if user exists
+  const user = await client.search({
+    index: 'users',
+    body: {
+      query: {
+        match: { username }
+      }
+    }
+  });
+
+  if (user.hits.total.value === 0) {
+    return res.status(404).send('User not found');
+  }
+
+  // We assume the first hit is the correct user, as usernames should be unique
+  const userData = user.hits.hits[0]._source;
+
+  // Check password
+  const validPassword = await bcrypt.compare(password, userData.password);
+  if (!validPassword) {
+    return res.status(401).send('Invalid password');
+  }
+
+  // Create JWT token
+  const token = jwt.sign({ id: username, role: userData.role }, 'YourSecretKey', {
+    expiresIn: 86400 // expires in 24 hours
+  });
+
+  res.json({ token });
+});
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  if (!token) return res.status(403).send('No token provided');
+
+  jwt.verify(token, 'YourSecretKey', (err, decoded) => {
+    if (err) return res.status(500).send('Failed to authenticate token');
+
+    // Save user ID and role for use in other routes
+    req.userId = decoded.id;
+    req.userRole = decoded.role;
+    next();
+  });
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.userRole !== 'admin') return res.status(403).send('Requires admin role');
+  next();
+};
+
+
+// UPLOAD FUNCTION ###############################################################################################
 
 // Create Summery function using openAI API
 const { Configuration, OpenAIApi } = require("openai");
@@ -42,7 +152,7 @@ const getSummary = async (text) => {
     const response = await openai.createCompletion({
       model: 'text-davinci-003', // choose engine
       prompt: `Please provide a short summary of approximately 60 words, do not mention the title. My document is: ${text}\n`,
-      temperature: 1,
+      temperature: 0.9,
       max_tokens: 256, // how long should the summary be
     });
 
@@ -63,13 +173,12 @@ const getSummary = async (text) => {
 
 // Use express.static middleware to serve files from a directory
 app.use('/pdfs', express.static('pdfs'));
-
-app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
+app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (req, res) => {
   try {
     // Get data from form
     const pdfFile = req.file;
-    const titleU = req.body.titleU;
-    const autherU = req.body.autherU;
+    const title = req.body.title;
+    const author = req.body.author;
     const subject = req.body.subject;
     const language = req.body.language;
     const company_unit = req.body.company_unit;
@@ -106,12 +215,12 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   // Index the PDF file
   await client.index({
     index: 'pdfs',
-    id: titleU,
+    id: title,
     pipeline: 'attachment',
     body: {
       data: base64String,
-      title: titleU,
-      auther: autherU,
+      title: title,
+      author: author,
       subject: subject,
       language: language,
       company_unit: company_unit,
@@ -133,10 +242,7 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
   }
 });
 
-
-
-// SEARCH FUNCTION
-
+// SEARCH FUNCTION ###############################################################################################################
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -149,17 +255,16 @@ function formatDate(isoString) {
   return `${day}.${month}.${year}`;
 }
 
-app.get('/search', async function(req, res) {
+app.get('/search', verifyToken, async function(req, res) {
   const query = req.query.query;
   const language = req.query.language;
-  const company_unit = req.query.company_unit
-  const subject = req.query.subject
-  const doc_type = req.query.doc_type
-  const doc_level = req.query.doc_level
-  console.log(doc_level)
+  const company_unit = req.query.company_unit;
+  const subject = req.query.subject;
+  const doc_type = req.query.doc_type;
+  const doc_level = req.query.doc_level;
+  console.log(doc_level);
 
   try {
-
     // Normal search
     let filters = [];
     if (doc_level) {
@@ -178,26 +283,56 @@ app.get('/search', async function(req, res) {
       filters.push({ match: { doc_type: doc_type } });
     };
 
-
-    const response = await client.search({
-      index: 'pdfs',
-       body: {
-        query: {
-          bool: {
-            must: {
-              multi_match: {
-                query: query,
-                fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
-                type: 'best_fields'
-              }
-           },
-          filter: filters
+    async function searchDocuments(query, filters) {
+      // First, try multi_match
+      let response = await client.search({
+        index: 'pdfs',
+        body: {
+          query: {
+            bool: {
+              must: {
+                multi_match: {
+                  query: query,
+                  fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                  type: 'best_fields',
+                  fuzziness: 'AUTO'
+                }
+              },
+              filter: filters
+            }
+          }
         }
+      });
+    
+      // If no results from multi_match, try query_string
+      if (response && response.hits && response.hits.hits && response.hits.hits.length === 0) {
+        response = await client.search({
+          index: 'pdfs',
+          body: {
+            query: {
+              bool: {
+                must: {
+                  query_string: {
+                    query: "*" + query + "*",
+                    fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
+                    default_operator: "AND",
+                    fuzziness: 'AUTO'
+                  }
+                },
+                filter: filters
+              }
+            }
+          }
+        });
       }
+    
+      return response;
     }
-    });
-
-    console.log('Response:', JSON.stringify(response, null, 2));
+    
+    // Use the search function
+    const response = await searchDocuments(query, filters);
+    
+    //console.log('Response:', JSON.stringify(response, null, 2));
     
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
@@ -206,12 +341,12 @@ app.get('/search', async function(req, res) {
         company_unit: hit._source.company_unit,
         summary: hit._source.summary,
         created_at: formatDate(hit._source.created_at),
-        author: hit._source.auther,
+        author: hit._source.author,
         url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
         level: hit._source.doc_level,
       }));
     
-    console.log(results)
+    //console.log(results)
 
       res.json(results);
     } else {
@@ -224,7 +359,9 @@ app.get('/search', async function(req, res) {
   }
 });
 
-// SERVE PDF
+
+// SERVE PDF ###########################################################################################################
+
 app.get('/pdfs/:title', async (req, res) => {
   const { title } = req.params;
   const result = await client.search({
