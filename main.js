@@ -111,7 +111,7 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     body: {
       data: base64String,
       title: titleU,
-      auther: autherU,
+      auther: author,
       subject: subject,
       language: language,
       company_unit: company_unit,
