@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./results.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+    />
+  </head>
+  <body>
+    <div id="search-results" class="search-results">
+      <script>
+        function displaySearchResults(data) {
+          var resultsContainer = document.getElementById("search-results");
+  
+          // Loop through each result in the data
+          data.forEach(function (result) {
+            var resultDiv = document.createElement("div");
+            resultDiv.className = "search-result";
+  
+            // Download Button with vector images
+            var button = document.createElement("a"); // Use <a> instead of <button>
+            button.className = "vector-parent";
+            button.href = result.url; // Set the download URL
+            button.download = "document"; // Set the default download file name
+            var img = document.createElement("img");
+            img.className = "group-child";
+            img.src = "./public/download-button.svg";
+            button.appendChild(img);
+
+
+            // Title
+            var titleContainer = document.createElement("div");
+            titleContainer.className = "titel-der-guideline-container";
+            var title = document.createElement("span");
+            title.className = "titel-der-guideline";
+            title.textContent = result.title;
+            var unit = document.createElement("span");
+            unit.className = "unit";
+            unit.textContent = " - " + result.company_unit;
+            titleContainer.appendChild(title);
+            titleContainer.appendChild(unit);
+  
+            // Author
+            var author = document.createElement("div");
+            author.className = "autor";
+            author.textContent = result.created_at + " - " + result.author ;
+  
+            // Summary        
+            var description = document.createElement("div");
+            description.className = "beschreibung-der-guideline";
+            description.textContent = result.summary;
+  
+            // Appending elements to the result div
+            resultDiv.appendChild(button);
+            resultDiv.appendChild(titleContainer);
+            resultDiv.appendChild(author);
+            resultDiv.appendChild(description);
+  
+            // Appending result div to the results container
+            resultsContainer.appendChild(resultDiv);
+  
+          });
+        }
+  
+        // Fetching data from local storage
+        var storedData = localStorage.getItem("searchResults");
+  
+        if (storedData) {
+          try {
+            var parsedData = JSON.parse(storedData); // Parse the stringified data
+            displaySearchResults(parsedData); // Call function to display results
+          } catch (error) {
+            console.error("Error parsing stored search results: ", error);
+          }
+        } else {
+          console.error("No search results found in local storage.");
+        }
+      </script>
+    </div>"
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/search-icon.svg" />
+              <a href="index.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
+          class="user-picture-icon"
+          alt=""
+          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
+      />
+    </div>
+
+    <div class="logo-header-container">
+      <h1 class="myguidetennet1">MyGuide@TenneT</h1>
+      <img 
+          class="my-guide-at-tennet-logo"
+          src="./public/Logo_Guide_V3_blue.svg"
+      />
+    </div>
+      <img
+        class="tennet-logo-icon1"
+        alt=""
+        src="./public/2560pxtennet-tso-logo-1@2x.png"
+      />
+  </body>
+</html>

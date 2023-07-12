@@ -1,0 +1,269 @@
+.search-functionality,
+.search-icon {
+  position: absolute;
+  left: calc(50% - 24.5px);
+}
+.search-icon {
+  height: 74.07%;
+  top: 16.67%;
+  bottom: 9.26%;
+  max-height: 100%;
+  width: 43px;
+}
+.search-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 0;
+  width: 49px;
+  height: 54px;
+  overflow: hidden;
+}
+.search-button1,
+.upload-icon {
+  position: absolute;
+  height: 73.97%;
+  top: 0;
+  bottom: 26.03%;
+  left: calc(50% - 120px);
+  width: 49px;
+}
+.upload-icon {
+  height: 82.61%;
+  top: 10.87%;
+  bottom: 6.52%;
+  left: calc(50% - 23px);
+  max-height: 100%;
+  width: 40px;
+}
+.upload-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.upload-button {
+  position: absolute;
+  height: 63.01%;
+  top: 12.33%;
+  bottom: 24.66%;
+  left: calc(50% - 57px);
+  width: 48px;
+}
+.favorite-icon {
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  width: 42px;
+  height: 37px;
+}
+.favorite-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 19.5px);
+  width: 39px;
+  height: 35px;
+  overflow: hidden;
+}
+.favorite-button {
+  position: absolute;
+  top: 14px;
+  left: 125px;
+  width: 39px;
+  height: 35px;
+}
+.help-functionality {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 24.5px);
+  width: 48px;
+  height: 46px;
+  overflow: hidden;
+}
+.help-button,
+.help-icon {
+  position: absolute;
+  top: 2px;
+  width: 55px;
+}
+.help-icon {
+  left: calc(50% - 27.5px);
+  height: 69px;
+  overflow: hidden;
+}
+.help-button {
+  left: calc(50% + 65px);
+  height: 71px;
+}
+.buttons {
+  position: relative;
+  width: 240px;
+  height: 73px;
+}
+.user-picture-icon {
+  position: relative;
+  border-radius: var(--br-256xl);
+  width: 102px;
+  height: 102px;
+  object-fit: cover;
+}
+.search,
+.top-right {
+  background-color: var(--color-white);
+}
+.top-right {
+  position: absolute;
+  top: 43px;
+  right: 60px;
+  width: 369px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-10xl);
+}
+.tennet-logo-icon1 {
+  position: absolute;
+  top: 56px;
+  left: 158px;
+  width: 300px;
+  height: 61.36px;
+  object-fit: cover;
+}
+
+.logo-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  position: relative;
+  width: 100%;
+  top: 279px
+}
+
+.my-guide-at-tennet-logo {
+  position: relative;
+  top: -9px; /* adjust for difference in top values of original logo and heading */
+  left: -315px; /* adjust this value for horizontal spacing between heading and logo */
+  width: 80px;
+  height: 80px;
+}
+
+.myguidetennet1 {
+  margin: 0;
+  position: relative;
+  font-size: var(--font-size-45xl);
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif; 
+  color: var(--color-darkslateblue-100);
+  text-align: center;
+  display: inline-block;
+  width: 1215px;
+  height: 77px;
+}
+
+
+/* Styles for all result entries */
+.search-results {
+  position: absolute;
+  top: calc(279px + 130px); /* Positioning below the 'myguidetennet1' element */
+  left: 50%;
+  max-width: 1150px;
+  width: 90%; /* 90% of the viewport width */
+  transform: translateX(-50%);
+  max-height: 90vh; /* making height dynamic */
+  overflow-y: auto; /* scrollable content vertically */
+  overflow-x: hidden; /* prevent horizontal scroll - added this line */
+  text-align: middle; /* changed from 'middle' to 'center' to align text properly */
+  font-family: var(--font-inter);
+  padding: 20px; /* added padding around container */
+  box-sizing: border-box; /* padding included in width/height */
+  display: flex;
+  flex-direction: column; /* making children stack vertically */
+  gap: 20px; /* spacing between children */
+
+  background-color: transparent; /* Box starts here */
+  border: 5px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.search-result {
+  position: relative;
+  width: 100%;
+ /*  background-color: #f9f9f9; /* background color */
+  padding: 15px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* shadow for separation */
+  padding-right: 80px; /* Additional padding on the right side to make space for the button */
+}
+
+/* Image and button styles */
+.vector-parent {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  display: inline-block;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  transform: translateY(0%); /* Align vertically bottom */
+}
+
+.group-child {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  width: 66px; /* Increase the width */
+  height: 66px; /* Increase the height */
+}
+
+/* Title and unit styles */
+.titel-der-guideline-container {
+  display: flex;
+  align-items: baseline; /* align text baselines */
+  margin-bottom: 5px; /* spacing below title */
+}
+
+.titel-der-guideline {
+  font-size: 1.5em; /* make the title larger */
+  font-weight: 600;
+  color: var(--color-dodgerblue);
+}
+
+.unit {
+  font-size: 1em;
+  color: var(--color-gray);
+  margin-left: 5px; /* spacing after title */
+}
+
+/* Author styles */
+.autor {
+  font-size: 0.8em;
+  font-weight: 300;
+  color: var(--color-dimgray);
+  margin-bottom: 5px; /* spacing below author */
+}
+
+/* Description styles */
+.beschreibung-der-guideline {
+  font-size: 1em;
+  color: var(--color-black);
+  max-width: 85%;
+  word-wrap: break-word; /* this will break the words to next line - added this line */
+}
