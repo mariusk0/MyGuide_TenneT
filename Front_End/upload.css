@@ -494,11 +494,10 @@
     justify-content: flex-start;
     text-align: center;
     font-size: 24px;
-    color: var(-5);
+    color: var(--color-white);
     font-family: var(--font-roboto);
   }
   
-
 
   .upload {
     position: relative;
