@@ -1,185 +1,3 @@
-.suchergebnisse-child {
-  position: absolute;
-  height: 96.45%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 3.55%;
-  left: 0;
-  border-radius: 8px;
-  background-color: var(--color-white);
-  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
-}
-.group-child,
-.group-item {
-  position: absolute;
-  top: calc(50% - 27.5px);
-  right: 6.37px;
-  width: 39.26px;
-  height: 37.05px;
-}
-.group-item {
-  top: calc(50% + 14.86px);
-  right: -1.5px;
-  border-radius: var(--br-11xs);
-  width: 55px;
-  height: 12.64px;
-}
-.vector-parent {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  position: absolute;
-  top: calc(50% - 24px);
-  right: 2px;
-  width: 52px;
-  height: 52px;
-}
-.titel-der-guideline {
-  font-weight: 600;
-}
-.unit {
-  font-size: var(--font-size-xl);
-  color: var(--color-gray);
-}
-.autor,
-.titel-der-guideline-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.autor {
-  top: 86.92%;
-  font-size: var(--font-size-sm);
-  font-weight: 300;
-  color: var(--color-dimgray);
-}
-.beschreibung-der-guideline {
-  position: absolute;
-  height: 56.15%;
-  width: 86.69%;
-  top: 30.77%;
-  left: 0;
-  font-size: var(--font-size-base);
-  color: var(--color-black);
-  display: inline-block;
-}
-.artikel-eintrag,
-.artikel-eintrag1,
-.artikel-eintrag2 {
-  position: absolute;
-  height: 11.26%;
-  width: 90.74%;
-  top: 5.63%;
-  right: 4.5%;
-  bottom: 83.12%;
-  left: 4.75%;
-}
-.artikel-eintrag1,
-.artikel-eintrag2 {
-  top: 36.28%;
-  bottom: 52.47%;
-}
-.artikel-eintrag2 {
-  top: 51.6%;
-  bottom: 37.14%;
-}
-.artikel-eintrag3,
-.artikel-eintrag4,
-.artikel-eintrag5,
-.suchergebnisse {
-  position: absolute;
-  height: 11.26%;
-  width: 90.74%;
-  top: 66.93%;
-  right: 4.5%;
-  bottom: 21.82%;
-  left: 4.75%;
-}
-.artikel-eintrag4,
-.artikel-eintrag5,
-.suchergebnisse {
-  top: 82.25%;
-  bottom: 6.49%;
-}
-.artikel-eintrag5,
-.suchergebnisse {
-  top: 20.95%;
-  bottom: 67.79%;
-}
-.suchergebnisse {
-  height: 57.41%;
-  width: 62.45%;
-  top: 21.47%;
-  right: 18.8%;
-  bottom: 21.12%;
-  left: 18.75%;
-  text-align: left;
-  font-size: var(--font-size-5xl);
-  color: var(--color-dodgerblue);
-  font-family: var(--font-inter);
-}
-.myguidetennet2 {
-  margin: 0;
-  position: absolute;
-  top: 300px;
-  left: 50%;
-  font-size: 60px;
-  font-weight: bold;
-  font-family: Roboto;
-  display: inline-block;
-  transform: translate(-50%, -50%);
-  color: #003584;
-}
-
-.tennet-logo-icon2 {
-  position: absolute;
-  top: 56px;
-  left: 158px;
-  width: 300px;
-  height: 61.36px;
-  object-fit: cover;
-}
-.search-results {
-  position: relative;
-  background-color: var(--color-white);
-  width: 100%;
-  height: 2012px;
-  overflow-x: auto;
-  text-align: center;
-  font-size: var(--font-size-45xl);
-  color: var(--color-darkslateblue-100);
-  font-family: var(--font-inter);
-}
-
-.resultsTable {
-  position: absolute;
-  top: 800px;
-  left: 50%;
-  width: 70%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 14px;
-  transform: translate(-50%, -50%);
-}
-
-.resultsTable thead {
-  background-color: #004594; /* Adjust this to your preferred color */
-  color: #FFFFFF; /* Adjust this to your preferred color */
-}
-
-.resultsTable th, 
-.resultsTable td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd; /* Adds a light border on the bottom of each cell */
-}
-
-.resultsTable th:first-child {
-  font-weight: bold;
-}
-
 .search-functionality,
 .search-icon {
   position: absolute;
@@ -319,13 +137,133 @@
   justify-content: center;
   gap: var(--gap-10xl);
 }
-.search {
+.tennet-logo-icon1 {
+  position: absolute;
+  top: 56px;
+  left: 158px;
+  width: 300px;
+  height: 61.36px;
+  object-fit: cover;
+}
+
+.logo-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
   position: relative;
   width: 100%;
-  height: 2012px;
-  overflow-x: auto;
-  text-align: center;
-  font-size: 80px;
+  top: 279px
+}
+
+.my-guide-at-tennet-logo {
+  position: relative;
+  top: -9px; /* adjust for difference in top values of original logo and heading */
+  left: -315px; /* adjust this value for horizontal spacing between heading and logo */
+  width: 80px;
+  height: 80px;
+}
+
+.myguidetennet1 {
+  margin: 0;
+  position: relative;
+  font-size: var(--font-size-45xl);
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif; 
   color: var(--color-darkslateblue-100);
+  text-align: center;
+  display: inline-block;
+  width: 1215px;
+  height: 77px;
+}
+
+
+/* Styles for all result entries */
+.search-results {
+  position: absolute;
+  top: calc(279px + 130px); /* Positioning below the 'myguidetennet1' element */
+  left: 50%;
+  max-width: 1150px;
+  width: 90%; /* 90% of the viewport width */
+  transform: translateX(-50%);
+  max-height: 90vh; /* making height dynamic */
+  overflow-y: auto; /* scrollable content vertically */
+  overflow-x: hidden; /* prevent horizontal scroll - added this line */
+  text-align: middle; /* changed from 'middle' to 'center' to align text properly */
   font-family: var(--font-inter);
+  padding: 20px; /* added padding around container */
+  box-sizing: border-box; /* padding included in width/height */
+  display: flex;
+  flex-direction: column; /* making children stack vertically */
+  gap: 20px; /* spacing between children */
+
+  background-color: transparent; /* Box starts here */
+  border: 5px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.search-result {
+  position: relative;
+  width: 100%;
+ /*  background-color: #f9f9f9; /* background color */
+  padding: 15px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* shadow for separation */
+  padding-right: 80px; /* Additional padding on the right side to make space for the button */
+}
+
+/* Image and button styles */
+.vector-parent {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  display: inline-block;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  transform: translateY(0%); /* Align vertically bottom */
+}
+
+.group-child {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  width: 66px; /* Increase the width */
+  height: 66px; /* Increase the height */
+}
+
+/* Title and unit styles */
+.titel-der-guideline-container {
+  display: flex;
+  align-items: baseline; /* align text baselines */
+  margin-bottom: 5px; /* spacing below title */
+}
+
+.titel-der-guideline {
+  font-size: 1.5em; /* make the title larger */
+  font-weight: 600;
+  color: var(--color-dodgerblue);
+}
+
+.unit {
+  font-size: 1em;
+  color: var(--color-gray);
+  margin-left: 5px; /* spacing after title */
+}
+
+/* Author styles */
+.autor {
+  font-size: 0.8em;
+  font-weight: 300;
+  color: var(--color-dimgray);
+  margin-bottom: 5px; /* spacing below author */
+}
+
+/* Description styles */
+.beschreibung-der-guideline {
+  font-size: 1em;
+  color: var(--color-black);
+  max-width: 85%;
+  word-wrap: break-word; /* this will break the words to next line - added this line */
 }

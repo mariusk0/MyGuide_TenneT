@@ -19,11 +19,18 @@
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!--My AskAI integration-->
     <script type="text/javascript" src="https://myaskai.com/embed-chat-js-min" id="ejM1qCPvHRzrNfipqTju8qdSeyJ43h"></script>
 
   </head>
   <body>
-    <h1 class="myguidetennet2">MyGuide@TenneT</h1>
+    <div class="logo-header-container">
+      <h1 class="myguidetennet1">MyGuide@TenneT</h1>
+      <img 
+          class="my-guide-at-tennet-logo"
+          src="./public/Logo_Guide_V3_blue.svg"
+      />
+    </div>
     <img class="tennet-logo-icon2" alt="" src="./public/2560pxtennet-tso-logo-1@2x.png" />
 
     <div class="search-bar">
@@ -141,6 +148,7 @@
           src="./public/pexelsthisisengineering3861447-1-1@2x.png"
       />
   </div>
+
   <script>
     $(document).ready(function() {
       $('form').submit(function(event) {
@@ -170,11 +178,11 @@
             window.location.href = 'results.html';
           },
           error: function() {
+            $('#loadingIndicator').addClass('d-none');
             alert('An error occurred while searching. Please try again later.');
           }
         });
       });
-  
       // Reset Button
       $('#reset').click(function() {
         $('#searchTerm').val('');
