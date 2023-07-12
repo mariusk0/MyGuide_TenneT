@@ -1,6 +1,0 @@
-cors
-express
-multer
-@elastic/elasticsearch
-pdf-parse
-openai
