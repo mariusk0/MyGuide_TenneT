@@ -494,7 +494,7 @@
     justify-content: flex-start;
     text-align: center;
     font-size: 24px;
-    color: var(--color-white);
+    color: var(-5);
     font-family: var(--font-roboto);
   }
   
