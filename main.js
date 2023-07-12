@@ -69,7 +69,7 @@ app.post('/upload-pdf', upload.single('pdf-file'), async (req, res) => {
     // Get data from form
     const pdfFile = req.file;
     const titleU = req.body.titleU;
-    const autherU = req.body.autherU;
+    const author = req.body.author;
     const subject = req.body.subject;
     const language = req.body.language;
     const company_unit = req.body.company_unit;
