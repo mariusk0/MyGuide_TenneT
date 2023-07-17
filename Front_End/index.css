@@ -303,3 +303,27 @@
   font-family: var(--font-inter);
 }
 
+.floating-button {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #003584;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  border: none;
+  cursor: pointer;
+}
+
+.floating-button:hover {
+  background-color: #0057da;
+}
+
+.floating-button img {
+  width: 80%;
+  height: 70%;
+}
+
