@@ -16,11 +16,10 @@ const app = express();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const client = new Client({ 
-  node: 'https://localhost:9200',
-  auth: {
-    username: 'marius',
-    password: 'kottek'
-  }
+  node: 'http://elasticsearch:9200',
+  maxRetries: 5,
+  requestTimeout: 60000,
+  sniffOnStart: true,
 });
 
 app.use(cors());
