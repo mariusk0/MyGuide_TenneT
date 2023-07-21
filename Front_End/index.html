@@ -58,11 +58,10 @@
 
     <div class="dropdowns">
       <form class="dropdown-filter">
-  
         <div class="mb-3">
           <label for="subject" class="form-label">Wähle Themenbereich:</label>
           <select class="form-select" id="subject">
-            <option value="">Any</option>
+            <option value="">-</option>
             <option value="Organization & Principals">Organization & Principals</option>
             <option value="Corporate Policies">Corporate Policies</option>
             <option value="Units & Committees">Units & Committees</option>
@@ -74,7 +73,7 @@
         <div class="mb-3">
           <label for="company_unit" class="form-label">Wähle Organisationseinheit:</label>
           <select class="form-select" id="company_unit">
-            <option value="">Any</option>
+            <option value="">-</option>
             <option value="Asset Management">Asset Management</option>
             <option value="Audit, Risk & Internal Control">Audit, Risk & Internal Control</option>
             <option value="Board Office">Board Office</option>
@@ -86,7 +85,7 @@
         <div class="mb-3">
           <label for="doc_type" class="form-label">Wähle Dokumententyp:</label>
           <select class="form-select" id="doc_type">
-            <option value="">Any</option>
+            <option value="">-</option>
             <option value="Corporate Policy">Corporate Policy</option>
             <option value="Functional Description">Functional Description</option>
             <option value="Handbook">Handbook</option>
@@ -98,7 +97,7 @@
         <div class="mb-3">
           <label for="doc_level" class="form-label">Wähle Dokumentenlevel:</label>
           <select class="form-select" id="doc_level">
-            <option value="">Any</option>
+            <option value="">-</option>
             <option value="Level-0">Level-0</option>
             <option value="Level-1">Level-1</option>
             <option value="Level-2">Level-2</option>
@@ -109,7 +108,7 @@
         <div class="mb-3">
           <label for="language" class="form-label">Wähle Sprache:</label>
           <select class="form-select" id="language">
-            <option value="">Any</option>
+            <option value="">-</option>
             <option value="Englisch">Englisch</option>
             <option value="Deutsch">Deutsch</option>
             <option value="Niederländisch">Niederländisch</option>
@@ -117,6 +116,10 @@
           </select>
         </div>
       </form>
+    </div>
+
+    <div id="recentGuidelines" class="search-results">
+      <h2>Kürzlich aktualisierte Guidelines</h2>
     </div>
 
     <div class="top-right">
@@ -197,6 +200,71 @@
         $('#resultsTable').addClass('d-none');
         $('#resultsBody').empty();
       });
+
+      // Recent Guidelines
+      function displayRecentGuidelines(data) {
+        var resultsContainer = document.getElementById("recentGuidelines");
+    
+        // Loop through each result in the data
+        data.forEach(function (result) {
+            var resultDiv = document.createElement("div");
+            resultDiv.className = "search-result";
+    
+            // Download Button with vector images
+            var button = document.createElement("a"); // Use <a> instead of <button>
+            button.className = "vector-parent";
+            button.href = result.url; // Set the download URL
+            button.download = "document"; // Set the default download file name
+            var img = document.createElement("img");
+            img.className = "group-child";
+            img.src = "./public/download-button.svg";
+            button.appendChild(img);
+    
+            // Title
+            var titleContainer = document.createElement("div");
+            titleContainer.className = "titel-der-guideline-container";
+            var title = document.createElement("span");
+            title.className = "titel-der-guideline";
+            title.textContent = result.title;
+            var unit = document.createElement("span");
+            unit.className = "unit";
+            unit.textContent = " - " + result.company_unit;
+            titleContainer.appendChild(title);
+            titleContainer.appendChild(unit);
+    
+            // Author
+            var author = document.createElement("div");
+            author.className = "autor";
+            author.textContent = result.created_at + " - " + result.author;
+    
+            // Summary        
+            var description = document.createElement("div");
+            description.className = "beschreibung-der-guideline";
+            description.textContent = result.summary;
+    
+            // Appending elements to the result div
+            resultDiv.appendChild(button);
+            resultDiv.appendChild(titleContainer);
+            resultDiv.appendChild(author);
+            resultDiv.appendChild(description);
+    
+            // Appending result div to the results container
+            resultsContainer.appendChild(resultDiv);
+        });
+      }
+    
+    // Fetch and display recent guidelines
+    $.ajax({
+        url: 'http://localhost:3000/recentGuidelines',
+        method: 'GET',
+        success: function(data) {
+            displayRecentGuidelines(data);
+        },
+        error: function() {
+            alert('An error occurred while fetching recent guidelines. Please try again later.');
+        }
+    });
+
     });
   </script>
   </body>

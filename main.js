@@ -360,6 +360,39 @@ app.get('/search', verifyToken, async function(req, res) {
 });
 
 
+// Get Recent Updates ##################################################################################################
+
+app.get('/recentGuidelines', async (req, res) => {
+  try {
+    updated = await client.search({
+      index: 'pdfs',
+      body: {
+        query: {
+          match_all: {} // Match all documents
+        },
+        sort: [
+          { created_at: { order: "desc" } } // Sort by created_at in descending order
+        ],
+        size: 3 // Get only the top 3 most recent documents
+      }
+    });
+
+    const documents = updated.hits.hits.map(hit => ({
+      title: hit._source.title,
+      url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
+      created_at: hit._source.created_at,
+      author: hit._source.author,
+      summary: hit._source.summary,
+      company_unit: hit._source.company_unit
+    }));
+
+    res.json(documents);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching recent documents.' });
+  }
+});
+
 // SERVE PDF ###########################################################################################################
 
 app.get('/pdfs/:title', async (req, res) => {
