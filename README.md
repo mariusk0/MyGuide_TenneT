@@ -13,5 +13,7 @@
 8. Loggen Sie sich mit Ihren Daten ein, in Zukunft können Sie sich direkt unter 'http://localhost:3000/login.html' anmelden
 (Ignorieren Sie die Fehlermeldung, diese liegt daran, das noch keine Guideline hochgeladen wurde.)
 
-Nun können Sie durch unseren Prototypen navigieren.
+Nun können Sie durch unseren Prototypen navigieren.  
+
 Wir empfehlen erst einmal unter dem Uploadsysmbol oben rechts einige Guidelines hochzuladen.
+Bitte beachten Sie, das aufgrund der Verbindung zur OpenAI API nur Dokumente mit einer bestimmten länge hochgeladen werden können, um sicher zu gehen verwenden Sie die von uns bereitgestellten Beispiel Guidelines.
