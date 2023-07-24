@@ -17,9 +17,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const client = new Client({ 
   node: 'http://elasticsearch:9200',
-  maxRetries: 5,
-  requestTimeout: 60000,
-  sniffOnStart: true,
+  headers: {
+    'Content-Type': 'application/vnd.elasticsearch+json; compatible-with=8',
+    'Accept': 'application/vnd.elasticsearch+json; compatible-with=8'
+  }
 });
 
 app.use(cors());
@@ -391,6 +392,7 @@ app.get('/recentGuidelines', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching recent documents.' });
   }
 });
+
 
 // SERVE PDF ###########################################################################################################
 
