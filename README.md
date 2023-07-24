@@ -4,7 +4,7 @@
 1. Öffnen Sie das Repository in Quelltext-Editor (wir empfehlen VS Code)
 2. Kopieren Sie den bereitgestellten 'env'-File in das Repository und bennen ihn um in '.env'
 3. Öffnen Sie das Terminal in Ihrem aktuellen Ordner
-4. Stellen Sie sicher, das Docker Desktop auf Ihrem System instaliert und gestartet ist
+4. Stellen Sie sicher, das Docker Desktop auf Ihrem System instaliert und gestartet ist und wenn Sie VS Code verwenden, Sie die Docker Erweiterung instaliert haben
 4. Führen Sie den Befehl 'docker-compose up' aus - Programm wird gestartet, dies könnte einige Zeit dauern
 5. Bei Erfolg sollte das Terminal 'Server started on port 3000' anzeigen und in Docker Desktop ein Container mit dem Namen 'myguide_tennet-1' und zwei laufenden Prozessen angezeigt werden
 6. Öffnen Sie im Browser 'http://localhost:3000/register.html'
