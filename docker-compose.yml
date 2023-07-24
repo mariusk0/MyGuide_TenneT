@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  elasticsearch:
+    image: mkottek/myguide-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - target: 9200
+        published: 9200
+    networks:
+      - elasticnetwork
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  web:
+    image: mkottek/myguide-web
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - elasticnetwork
+
+volumes:
+  es_data:
+    driver: local
+
+networks:
+  elasticnetwork:
+    driver: bridge

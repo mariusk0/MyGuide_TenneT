@@ -16,10 +16,10 @@ const app = express();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const client = new Client({ 
-  node: 'https://localhost:9200',
-  auth: {
-    username: 'marius',
-    password: 'kottek'
+  node: 'http://elasticsearch:9200',
+  headers: {
+    'Content-Type': 'application/vnd.elasticsearch+json; compatible-with=8',
+    'Accept': 'application/vnd.elasticsearch+json; compatible-with=8'
   }
 });
 
@@ -356,6 +356,40 @@ app.get('/search', verifyToken, async function(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while searching.');
+  }
+});
+
+
+// Get Recent Updates ##################################################################################################
+
+app.get('/recentGuidelines', async (req, res) => {
+  try {
+    updated = await client.search({
+      index: 'pdfs',
+      body: {
+        query: {
+          match_all: {} // Match all documents
+        },
+        sort: [
+          { created_at: { order: "desc" } } // Sort by created_at in descending order
+        ],
+        size: 3 // Get only the top 3 most recent documents
+      }
+    });
+
+    const documents = updated.hits.hits.map(hit => ({
+      title: hit._source.title,
+      url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
+      created_at: hit._source.created_at,
+      author: hit._source.author,
+      summary: hit._source.summary,
+      company_unit: hit._source.company_unit
+    }));
+
+    res.json(documents);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching recent documents.' });
   }
 });
 
