@@ -15,3 +15,4 @@
 
 Nun können Sie durch unseren Prototypen navigieren.
 Wir empfehlen erst einmal unter dem Uploadsysmbol oben rechts einige Guidelines hochzuladen.
+Bitte beachten Sie, das aufgrund der Verbindung zur OpenAI API nur Dokumente mit einer bestimmten länge hochgeladen werden können, um sicher zu gehen verwenden Sie die von uns bereitgestellten Beispiel Guidelines. 
