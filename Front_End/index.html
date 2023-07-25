@@ -19,11 +19,10 @@
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!--My AskAI integration-->
-
 
   </head>
   <body>
+    <!--Header-->
     <div class="logo-header-container">
       <h1 class="myguidetennet1">Capella</h1>
       <img 
@@ -33,6 +32,37 @@
     </div>
     <img class="tennet-logo-icon2" alt="" src="./public/2560pxtennet-tso-logo-1@2x.png" />
 
+    <div class="top-right">
+      <div class="buttons">
+          <div class="search-button1">
+              <img class="search-icon" alt="" src="./public/home.png" />
+              <a href="chat.html">
+                  <button class="search-functionality"></button>
+              </a>
+          </div>
+          <div class="upload-button">
+              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
+              <a href="upload.html">
+                  <button class="upload-functionality"></button>
+              </a>
+          </div>
+          <div class="favorite-button">
+              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
+              <button class="favorite-functionality"></button>
+          </div>
+          <div class="help-button">
+              <button class="help-functionality"></button>
+              <img class="help-icon" alt="" src="./public/help-icon.svg" />
+          </div>
+      </div>
+      <img
+          class="user-picture-icon"
+          alt=""
+          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
+      />
+    </div>
+
+    <!--Search-->
     <div class="search-bar">
       <form class="searchbar" id="formID">
         <input
@@ -43,11 +73,10 @@
           name="searchTerm"
           maxlength
           minlength
-        /> <!-- Marius: changed ID to search Term, added name = searchTerm-->
+        /> 
         
-        <!-- Marius: I added a reset button !please style! -->
         <button class="reset-button" type="button" id="reset">
-          &#10005; <!-- Unicode Character 'MULTIPLICATION X' (U+2715) -->
+          &#10005; 
         </button>
 
         <button class="search-button" type="submit" id="searchButton">
@@ -56,6 +85,7 @@
       </form>
     </div>
 
+    <!--dropdown filter-->
     <div class="dropdowns">
       <form class="dropdown-filter">
         <div class="mb-3">
@@ -122,35 +152,7 @@
       <h2>Kürzlich aktualisierte Guidelines</h2>
     </div>
 
-    <div class="top-right">
-      <div class="buttons">
-          <div class="search-button1">
-              <img class="search-icon" alt="" src="./public/home.png" />
-              <a href="chat.html">
-                  <button class="search-functionality"></button>
-              </a>
-          </div>
-          <div class="upload-button">
-              <img class="upload-icon" alt="" src="./public/upload-icon.svg" />
-              <a href="upload.html">
-                  <button class="upload-functionality"></button>
-              </a>
-          </div>
-          <div class="favorite-button">
-              <img class="favorite-icon" alt="" src="./public/favorites.svg" />
-              <button class="favorite-functionality"></button>
-          </div>
-          <div class="help-button">
-              <button class="help-functionality"></button>
-              <img class="help-icon" alt="" src="./public/help-icon.svg" />
-          </div>
-      </div>
-      <img
-          class="user-picture-icon"
-          alt=""
-          src="./public/pexelsthisisengineering3861447-1-1@2x.png"
-      />
-    </div>
+    
 
     <a href="chat.html">
       <button class="floating-button">
@@ -178,9 +180,9 @@
         $.ajax({
           url: 'http://localhost:3000/search?query=' + searchTerm + '&language=' + language + '&company_unit=' + company_unit + '&subject=' + subject + '&doc_type=' + doc_type + '&doc_level=' + doc_level, //server adress + query + filter
           method: 'GET',
-          // Include JWT in headers
+          // check JWT in headers
           beforeSend: function(xhr) {
-            xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
+            xhr.setRequestHeader('x-access-token', token); 
           },
           // store results in local storage
           success: function(data) {

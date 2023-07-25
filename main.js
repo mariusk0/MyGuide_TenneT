@@ -1,6 +1,7 @@
 // Load enviroment var
 require('dotenv').config();
 
+//load moduels
 const cors = require('cors');
 const express = require('express');
 const multer = require('multer');
@@ -15,6 +16,7 @@ const app = express();
 // Disable Certificate Verification , only for development
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
+// create elasticsearch client
 const client = new Client({ 
   node: 'http://elasticsearch:9200',
   headers: {
@@ -41,7 +43,13 @@ client.indices.create({
   }
 }, { ignore: [400] });
 
-// Rollensystem ##################################################################################################
+//Determin Homepage
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + 'Front_End/login.html'));
+});
+
+
+// Roles system ##############################################
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -130,6 +138,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
+// Admin role
 const isAdmin = (req, res, next) => {
   if (req.userRole !== 'admin') return res.status(403).send('Requires admin role');
   next();
@@ -156,12 +165,6 @@ const getSummary = async (text) => {
       max_tokens: 256, // how long should the summary be
     });
 
-    /* Delete Index
-    await client.indices.delete({
-      index: 'pdfs',
-    }, { ignore: [404] });
-    */
-
     // console.log(response);
     return response.data.choices[0].text;
 
@@ -173,6 +176,7 @@ const getSummary = async (text) => {
 
 // Use express.static middleware to serve files from a directory
 app.use('/pdfs', express.static('pdfs'));
+//check if admin, only admin can upload
 app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (req, res) => {
   try {
     // Get data from form
@@ -193,7 +197,7 @@ app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (
     const data = await pdfParse(pdf);
     const extractedText = data.text;
 
-    // Generate summary using OpenAI GPT-4
+    // Generate summary using OpenAI API
     const summary = await getSummary(extractedText);
 
     // Delete the file from uploads folder
@@ -242,7 +246,8 @@ app.post('/upload-pdf', verifyToken, isAdmin, upload.single('pdf-file'), async (
   }
 });
 
-// SEARCH FUNCTION ###############################################################################################################
+
+// SEARCH FUNCTION #########################################################
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -255,6 +260,7 @@ function formatDate(isoString) {
   return `${day}.${month}.${year}`;
 }
 
+// get searchterm and filter
 app.get('/search', verifyToken, async function(req, res) {
   const query = req.query.query;
   const language = req.query.language;
@@ -264,6 +270,7 @@ app.get('/search', verifyToken, async function(req, res) {
   const doc_level = req.query.doc_level;
   console.log(doc_level);
 
+  // Filters selection
   try {
     // Normal search
     let filters = [];
@@ -295,7 +302,7 @@ app.get('/search', verifyToken, async function(req, res) {
                   query: query,
                   fields: ['attachment.content', 'title', 'author', 'subject', 'language', 'company_unit', 'doc_type', 'doc_level'],
                   type: 'best_fields',
-                  fuzziness: 'AUTO'
+                  fuzziness: 'AUTO' // Fuzzi search
                 }
               },
               filter: filters
@@ -334,6 +341,7 @@ app.get('/search', verifyToken, async function(req, res) {
     
     //console.log('Response:', JSON.stringify(response, null, 2));
     
+    // results
     if(response && response.hits && response.hits.hits && response.hits.hits.length > 0) {
       const hits = response.hits.hits;
       const results = hits.map(hit => ({ 
@@ -377,6 +385,7 @@ app.get('/recentGuidelines', async (req, res) => {
       }
     });
 
+    // results
     const documents = updated.hits.hits.map(hit => ({
       title: hit._source.title,
       url: `http://localhost:3000/pdfs/${encodeURIComponent(hit._source.title)}`,
@@ -394,8 +403,9 @@ app.get('/recentGuidelines', async (req, res) => {
 });
 
 
-// SERVE PDF ###########################################################################################################
+// SERVE PDF FOR DOWNLOAD ############################################
 
+//find right document
 app.get('/pdfs/:title', async (req, res) => {
   const { title } = req.params;
   const result = await client.search({
@@ -411,12 +421,12 @@ app.get('/pdfs/:title', async (req, res) => {
     return res.status(404).send('Not found');
   }
 
-  const pdfData = result.hits.hits[0]._source.data; // This is your base64 string
+  const pdfData = result.hits.hits[0]._source.data; 
   const buffer = Buffer.from(pdfData, 'base64');
 
   res.writeHead(200, {
     'Content-Type': 'application/pdf',
-    'Content-Disposition': 'attachment; filename=' + title + '.pdf',
+    'Content-Disposition': 'attachment; filename=' + title + '.pdf', // find .pdf file
     'Content-Length': buffer.length
   });
 

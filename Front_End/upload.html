@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    <!--Header-->
     <main class="upload">
         <img
           class="tennet-logo-icon"
@@ -57,6 +58,7 @@
             />
         </div>
         
+        <!--Upload-->
         <form id="pdf-upload-form" method="POST" enctype="multipart/form-data">
           
           <div class="container">
@@ -135,6 +137,7 @@
                 var token = localStorage.getItem('jwt');
                 console.log(token)
 
+                // send upload
                 $.ajax({
                     url: 'http://localhost:3000/upload-pdf',
                     type: 'POST',
@@ -142,9 +145,9 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    // Include JWT in headers
+                    // check JWT in headers
                     beforeSend: function(xhr) {
-                        xhr.setRequestHeader('x-access-token', token); // Set the JWT in the x-access-token header
+                        xhr.setRequestHeader('x-access-token', token); 
                     },
                     success: function (response) {
                         $('#loading').hide();
